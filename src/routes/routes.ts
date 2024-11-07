@@ -16,23 +16,23 @@ router.post(
   users.createUser
 );
 
-// router.get(
-//   // Get user by ID
-//   "/api/users/:userId",
-//   userController.getUserById
-// );
+router.get(
+  // Get user by ID
+  "/api/users/:userId",
+  users.getUserById
+);
 
-// router.put(
-//   // Update user by ID
-//   "/api/users/:userId",
-//   userController.updateUserById
-// );
+router.put(
+  // Update user by ID
+  "/api/users/:userId",
+  users.updateUserById
+);
 
-// router.delete(
-//   // Delete user by ID
-//   "/api/users/:userId",
-//   userController.deleteUserById
-// );
+router.delete(
+  // Delete user by ID
+  "/api/users/:userId",
+  users.deleteUserById
+);
 
 // // Posts Routes
 // router.post(
