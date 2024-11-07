@@ -1,6 +1,11 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-const func = (req, res) => { };
+import { Request, Response } from "express";
+const User = require("../models/userModel");
+
+const getUsers = (req, res) => {};
+
+const createUser = (req, res) => {};
+
 module.exports = {
-    func,
+  getUsers,
+  createUser,
 };

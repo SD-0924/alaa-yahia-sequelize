@@ -13,7 +13,6 @@ app.use(express.json());
 
 const port: number = 3000;
 
-// MySQL Connection
 const db = mysql.createConnection(dbConfig);
 
 db.connect((err: any) => {
