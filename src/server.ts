@@ -1,8 +1,8 @@
 import express, { Request, Response } from "express";
-const mysql = require("mysql");
+const mysql = require("mysql2");
 
-export const app = express();
-// const routes = require("./routes/routes");
+const app = express();
+const routes = require("./routes/routes");
 
 app.set("view engine", "ejs");
 
@@ -10,38 +10,51 @@ app.use(express.static("./public/"));
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
+const port: number = 3000;
+
 // MySQL Connection
 const db = mysql.createConnection({
-  host: "localhost",
-  user: "alaayahia",
+  host: "127.0.0.1",
+  user: "root",
   password: "123456",
-  database: "mydb",
+  //   database: "mydb",
 });
 
-// Connect to MySQL
-db.connect((err: Error) => {
+db.connect((err: any) => {
   if (err) {
-    throw err;
+    console.error("Error connecting to MySQL:", err);
+    process.exit(1);
   }
-  console.log("Connected to MySQL as ID " + db.threadId);
+  console.log("Connected to MySQL");
 });
 
-const port: number = 3000;
-let server: any;
-
-app.get("/", (req: Request, res: Response) => {
-  res.send("nome page");
+app.get("/createdb", (req: Request, res: Response) => {
+  const sql = "CREATE DATABASE IF NOT EXISTS mydb";
+  db.query(sql, (err: { message: string }) => {
+    if (err)
+      return res.status(500).send("Error creating database: " + err.message);
+    res.send("Database created!");
+  });
 });
 
-// app.use(routes);
+app.use(routes);
 
 app.use((err: Error, req: Request, res: Response, next: any) => {
   res.status(500).send(err.message);
 });
+
 app.all("*", (req, res) => {
   res.status(404).send("Pequest not suported");
 });
 
-server = app.listen(port, () => {
-  console.log(`Server is running on http://localhost:${port}`);
+app.listen(port, () => {
+  console.log(`Server running on http://localhost:${port}`);
+});
+
+process.on("SIGINT", () => {
+  db.end((err: any) => {
+    if (err) console.error("Error closing MySQL connection:", err);
+    console.log("MySQL connection closed");
+    process.exit();
+  });
 });

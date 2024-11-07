@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const controller = require("../controllers/controller");
-const files_middleware = require("../middlewares/middleware");
+const files_middleware = require("../middlewares/middlewares");
 
 router.post(
   "/api/",
