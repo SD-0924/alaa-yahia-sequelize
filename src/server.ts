@@ -1,4 +1,5 @@
 import express, { Request, Response } from "express";
+import { dbConfig } from "./config/config";
 const mysql = require("mysql2");
 
 const app = express();
@@ -13,12 +14,7 @@ app.use(express.json());
 const port: number = 3000;
 
 // MySQL Connection
-const db = mysql.createConnection({
-  host: "127.0.0.1",
-  user: "root",
-  password: "123456",
-  //   database: "mydb",
-});
+const db = mysql.createConnection(dbConfig);
 
 db.connect((err: any) => {
   if (err) {

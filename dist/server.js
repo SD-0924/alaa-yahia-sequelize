@@ -4,16 +4,17 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
+const config_1 = require("./config/config");
 const mysql = require("mysql2");
 const app = (0, express_1.default)();
+const routes = require("./routes/routes");
+app.set("view engine", "ejs");
+app.use(express_1.default.static("./public/"));
+app.use(express_1.default.urlencoded({ extended: true }));
+app.use(express_1.default.json());
 const port = 3000;
 // MySQL Connection
-const db = mysql.createConnection({
-    host: "127.0.0.1",
-    user: "root",
-    password: "123456",
-    //   database: "mydb",
-});
+const db = mysql.createConnection(config_1.dbConfig);
 db.connect((err) => {
     if (err) {
         console.error("Error connecting to MySQL:", err);
@@ -29,37 +30,12 @@ app.get("/createdb", (req, res) => {
         res.send("Database created!");
     });
 });
-app.get("/createUserTable", (req, res) => {
-    const sql = `
-    CREATE TABLE IF NOT EXISTS users (
-      id INT AUTO_INCREMENT PRIMARY KEY,
-      name VARCHAR(100),
-      email VARCHAR(100),
-      created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-    )
-  `;
-    db.query(sql, (err) => {
-        if (err)
-            return res.status(500).send("Error creating table: " + err.message);
-        res.send("Users table created!");
-    });
+app.use(routes);
+app.use((err, req, res, next) => {
+    res.status(500).send(err.message);
 });
-app.get("/addUser", (req, res) => {
-    const user = { name: "John Doe", email: "john@example.com" };
-    const sql = "INSERT INTO users SET ?";
-    db.query(sql, user, (err) => {
-        if (err)
-            return res.status(500).send("Error inserting user: " + err.message);
-        res.send("User added!");
-    });
-});
-app.get("/users", (req, res) => {
-    const sql = "SELECT * FROM users";
-    db.query(sql, (err, results) => {
-        if (err)
-            return res.status(500).send("Error fetching users: " + err.message);
-        res.json(results);
-    });
+app.all("*", (req, res) => {
+    res.status(404).send("Pequest not suported");
 });
 app.listen(port, () => {
     console.log(`Server running on http://localhost:${port}`);
