@@ -1,5 +1,5 @@
 import express, { Request, Response } from "express";
-import { dbConfig } from "./config/config";
+import sequelize from "./config/config";
 const mysql = require("mysql2");
 
 const app = express();
@@ -13,7 +13,11 @@ app.use(express.json());
 
 const port: number = 3000;
 
-const db = mysql.createConnection(dbConfig);
+const db = mysql.createConnection({
+  host: "127.0.0.1",
+  user: "root",
+  password: "123456",
+});
 
 db.connect((err: any) => {
   if (err) {
@@ -23,14 +27,14 @@ db.connect((err: any) => {
   console.log("Connected to MySQL");
 });
 
-app.get("/createdb", (req: Request, res: Response) => {
-  const sql = "CREATE DATABASE IF NOT EXISTS mydb";
-  db.query(sql, (err: { message: string }) => {
-    if (err)
-      return res.status(500).send("Error creating database: " + err.message);
-    res.send("Database created!");
-  });
-});
+// app.get("/createdb", (req: Request, res: Response) => {
+//   const sql = "CREATE DATABASE IF NOT EXISTS mydb";
+//   db.query(sql, (err: { message: string }) => {
+//     if (err)
+//       return res.status(500).send("Error creating database: " + err.message);
+//     res.send("Database created!");
+//   });
+// });
 
 app.use(routes);
 
@@ -42,9 +46,17 @@ app.all("*", (req, res) => {
   res.status(404).send("Pequest not suported");
 });
 
-app.listen(port, () => {
-  console.log(`Server running on http://localhost:${port}`);
-});
+(async () => {
+  try {
+    await sequelize.authenticate();
+    console.log("Database connection has been established successfully.");
+    app.listen(port, () => {
+      console.log(`Server running on http://localhost:${port}`);
+    });
+  } catch (error) {
+    console.error("Unable to connect to the database:", error);
+  }
+})();
 
 process.on("SIGINT", () => {
   db.end((err: any) => {

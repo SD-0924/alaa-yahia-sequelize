@@ -1,6 +1,11 @@
-export const dbConfig = {
-  host: "127.0.0.1",
-  user: "root",
+import { Sequelize } from "sequelize";
+
+const sequelize = new Sequelize({
+  database: "mydb",
+  username: "root",
   password: "123456",
-  // database: "mydb",
-};
+  host: "localhost",
+  dialect: "mysql",
+});
+
+export default sequelize;
