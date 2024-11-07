@@ -1,17 +1,15 @@
 "use strict";
 const express = require("express");
 const router = express.Router();
-const userController = require("../controllers/userController");
+const users = require("../controllers/userController");
 const files_middleware = require("../middlewares/middlewares");
 //User Routes
 router.get(
 // Get all users
-"/api/users", userController.getUsers);
-// router.post(
-//   // Create a new user
-//   "/api/users",
-//   userController.createUser
-// );
+"/api/users", users.getUsers);
+router.post(
+// Create a new user
+"/api/users", users.createUser);
 // router.get(
 //   // Get user by ID
 //   "/api/users/:userId",

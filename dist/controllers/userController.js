@@ -8,20 +8,36 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
-class UserController {
-    getUsers(req, res) {
-        return __awaiter(this, void 0, void 0, function* () {
-            //: Promise<Response>
-            // try {
-            //   const users = await User.findAll();
-            //   return res.status(200).json(users);
-            // } catch (error) {
-            //   console.error("Error fetching users:", error);
-            //   return res.status(500).json({ message: "Internal server error" });
-            // }
-            console.log("here");
-        });
+const userModel_1 = __importDefault(require("../models/userModel"));
+const getUsers = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const users = yield userModel_1.default.findAll();
+        return res.status(200).json(users);
     }
-}
-exports.default = new UserController();
+    catch (error) {
+        console.error("Error fetching users:", error);
+        return res.status(500).json({ message: "Internal server error" });
+    }
+});
+const createUser = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const username = req.body.username;
+        const email = req.body.email;
+        const password = req.body.password;
+        console.log(username, email, password);
+        const user = yield userModel_1.default.create({ username, email, password });
+        return res.status(201).json(user);
+    }
+    catch (error) {
+        console.error("Error creating user:", error);
+        return res.status(500).json({ message: "Internal server error" });
+    }
+});
+module.exports = {
+    getUsers,
+    createUser,
+};

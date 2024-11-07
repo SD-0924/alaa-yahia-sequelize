@@ -10,11 +10,11 @@ router.get(
   users.getUsers
 );
 
-// router.post(
-//   // Create a new user
-//   "/api/users",
-//   userController.createUser
-// );
+router.post(
+  // Create a new user
+  "/api/users",
+  users.createUser
+);
 
 // router.get(
 //   // Get user by ID

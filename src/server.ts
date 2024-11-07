@@ -1,15 +1,15 @@
 import express, { Request, Response } from "express";
+const bodyparser = require("body-parser");
 import sequelize from "./config/config";
 const mysql = require("mysql2");
-
-const app = express();
 const routes = require("./routes/routes");
 
-app.set("view engine", "ejs");
+const app = express();
 
+app.use(bodyparser.urlencoded({ extended: true }));
+app.use(bodyparser.json());
+app.set("view engine", "ejs");
 app.use(express.static("./public/"));
-app.use(express.urlencoded({ extended: true }));
-app.use(express.json());
 
 const port: number = 3000;
 
@@ -35,6 +35,8 @@ db.connect((err: any) => {
 //     res.send("Database created!");
 //   });
 // });
+
+//drop the db then create user table
 
 app.use(routes);
 

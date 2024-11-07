@@ -1,6 +1,9 @@
+// src/models/UserModel.ts
+
 import { DataTypes, Model, Optional } from "sequelize";
 import sequelize from "../config/config";
 
+// Define the attributes for the User model
 interface UserAttributes {
   id: number;
   username: string;
@@ -10,8 +13,10 @@ interface UserAttributes {
   updatedAt?: Date;
 }
 
+// Specify which attributes are optional when creating a new User
 interface UserCreationAttributes extends Optional<UserAttributes, "id"> {}
 
+// Define the User model
 class User
   extends Model<UserAttributes, UserCreationAttributes>
   implements UserAttributes
@@ -24,6 +29,7 @@ class User
   public readonly updatedAt!: Date;
 }
 
+// Initialize the User model with Sequelize
 User.init(
   {
     id: {
@@ -62,5 +68,3 @@ User.init(
 );
 
 export default User;
-
-module.exports = { User };
