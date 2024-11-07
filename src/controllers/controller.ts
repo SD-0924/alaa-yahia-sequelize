@@ -1,6 +1,9 @@
 import { Request, Response } from "express";
-const func = (req: Request, res: Response) => {};
+const getUsers = (req: Request, res: Response) => {};
+
+const createUser = (req: Request, res: Response) => {};
 
 module.exports = {
-  func,
+  getUsers,
+  createUser,
 };

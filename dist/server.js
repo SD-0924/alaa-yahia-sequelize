@@ -13,7 +13,6 @@ app.use(express_1.default.static("./public/"));
 app.use(express_1.default.urlencoded({ extended: true }));
 app.use(express_1.default.json());
 const port = 3000;
-// MySQL Connection
 const db = mysql.createConnection(config_1.dbConfig);
 db.connect((err) => {
     if (err) {
