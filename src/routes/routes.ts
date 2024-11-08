@@ -1,6 +1,8 @@
 const express = require("express");
 const router = express.Router();
 const users = require("../controllers/userController");
+const posts = require("../controllers/postController");
+
 const files_middleware = require("../middlewares/middlewares");
 
 //User Routes
