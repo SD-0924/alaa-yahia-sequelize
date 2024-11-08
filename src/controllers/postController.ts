@@ -23,7 +23,7 @@ export const getPosts = async (req: Request, res: Response) => {
   try {
     const posts = await Post.findAll({
       include: [
-        { model: User, as: "author", attributes: ["id", "name", "email"] },
+        { model: User, as: "user", attributes: ["id", "name", "email"] },
         { model: Category, as: "categories", through: { attributes: [] } },
         {
           model: Comment,
@@ -44,7 +44,7 @@ export const getPostById = async (req: Request, res: Response) => {
     const { id } = req.params;
     const post = await Post.findByPk(id, {
       include: [
-        { model: User, as: "author", attributes: ["id", "name", "email"] },
+        { model: User, as: "user", attributes: ["id", "name", "email"] },
         { model: Category, as: "categories", through: { attributes: [] } },
         {
           model: Comment,

@@ -2,6 +2,8 @@
 
 import { DataTypes, Model, Optional } from "sequelize";
 import sequelize from "../config/config";
+import Post from "./postModel";
+import Comment from "./commentModel";
 
 // Define the attributes for the User model
 interface UserAttributes {
@@ -66,5 +68,12 @@ User.init(
     tableName: "users",
   }
 );
+
+// Associations
+User.hasMany(Post, { foreignKey: "userId", as: "posts" });
+Post.belongsTo(User, { foreignKey: "userId", as: "author" });
+
+User.hasMany(Comment, { foreignKey: "userId", as: "comments" });
+Comment.belongsTo(User, { foreignKey: "userId", as: "user" });
 
 export default User;

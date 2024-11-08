@@ -40,7 +40,7 @@ const createUser = (req, res) => __awaiter(void 0, void 0, void 0, function* () 
 // Get a user by ID
 const getUserById = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const user = yield userModel_1.default.findByPk(req.params.id);
+        const user = yield userModel_1.default.findByPk(req.params.userId);
         if (!user) {
             return res.status(404).json({ message: "User not found" });
         }
@@ -55,7 +55,7 @@ const getUserById = (req, res) => __awaiter(void 0, void 0, void 0, function* ()
 const updateUserById = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const { username, email, password } = req.body;
-        const user = yield userModel_1.default.findByPk(req.params.id);
+        const user = yield userModel_1.default.findByPk(req.params.userId);
         if (!user) {
             return res.status(404).json({ message: "User not found" });
         }
@@ -73,7 +73,7 @@ const updateUserById = (req, res) => __awaiter(void 0, void 0, void 0, function*
 // Delete a user by ID
 const deleteUserById = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const user = yield userModel_1.default.findByPk(req.params.id);
+        const user = yield userModel_1.default.findByPk(req.params.userId);
         if (!user) {
             return res.status(404).json({ message: "User not found" });
         }
