@@ -45,7 +45,6 @@ PostCategory.init(
   }
 );
 
-// Associations for many-to-many relationship
 Post.belongsToMany(Category, {
   through: PostCategory,
   foreignKey: "postId",

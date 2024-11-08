@@ -67,6 +67,7 @@ router.delete(
   posts.deletePostById
 );
 
+// Category Routes
 router.post(
   // Create a new category for a post
   "/api/posts/:postId/categories",

@@ -1,11 +1,8 @@
-// src/models/UserModel.ts
-
 import { DataTypes, Model, Optional } from "sequelize";
 import sequelize from "../config/config";
 import Post from "./postModel";
 import Comment from "./commentModel";
 
-// Define the attributes for the User model
 interface UserAttributes {
   id: number;
   username: string;
@@ -15,10 +12,8 @@ interface UserAttributes {
   updatedAt?: Date;
 }
 
-// Specify which attributes are optional when creating a new User
 interface UserCreationAttributes extends Optional<UserAttributes, "id"> {}
 
-// Define the User model
 class User
   extends Model<UserAttributes, UserCreationAttributes>
   implements UserAttributes
@@ -69,7 +64,6 @@ User.init(
   }
 );
 
-// Associations
 User.hasMany(Post, { foreignKey: "userId", as: "posts" });
 Post.belongsTo(User, { foreignKey: "userId", as: "user" });
 

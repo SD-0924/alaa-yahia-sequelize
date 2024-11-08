@@ -1,5 +1,3 @@
-// src/models/PostModel.ts
-
 import { DataTypes, Model, Optional } from "sequelize";
 import sequelize from "../config/config";
 import User from "./userModel";
@@ -53,9 +51,5 @@ Post.init(
     tableName: "posts",
   }
 );
-
-// Associations
-// Post.belongsTo(User, { foreignKey: "userId", as: "user" });
-// User.hasMany(Post, { foreignKey: "userId", as: "posts" });
 
 export default Post;

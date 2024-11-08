@@ -52,10 +52,6 @@ Comment.init(
   }
 );
 
-// Associations
-// Comment.belongsTo(User, { foreignKey: "userId", as: "user" });
-// User.hasMany(Comment, { foreignKey: "userId", as: "comments" });
-
 Comment.belongsTo(Post, { foreignKey: "postId", as: "post" });
 Post.hasMany(Comment, { foreignKey: "postId", as: "comments" });
 
