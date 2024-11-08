@@ -55,7 +55,7 @@ Post.init(
 );
 
 // Associations
-Post.belongsTo(User, { foreignKey: "userId", as: "author" });
-User.hasMany(Post, { foreignKey: "userId", as: "posts" });
+// Post.belongsTo(User, { foreignKey: "userId", as: "user" });
+// User.hasMany(Post, { foreignKey: "userId", as: "posts" });
 
 export default Post;

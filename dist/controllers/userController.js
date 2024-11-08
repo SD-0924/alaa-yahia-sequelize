@@ -20,7 +20,7 @@ const getUsers = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     }
     catch (error) {
         console.error("Error fetching users:", error);
-        return res.status(500).json({ message: "Internal server error" });
+        return res.status(500).json({ message: error.message });
     }
 });
 const createUser = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
@@ -28,13 +28,12 @@ const createUser = (req, res) => __awaiter(void 0, void 0, void 0, function* () 
         const username = req.body.username;
         const email = req.body.email;
         const password = req.body.password;
-        console.log(username, email, password);
         const user = yield userModel_1.default.create({ username, email, password });
         return res.status(201).json(user);
     }
     catch (error) {
         console.error("Error creating user:", error);
-        return res.status(500).json({ message: "Internal server error" });
+        return res.status(500).json({ message: error.message });
     }
 });
 // Get a user by ID
@@ -48,7 +47,7 @@ const getUserById = (req, res) => __awaiter(void 0, void 0, void 0, function* ()
     }
     catch (error) {
         console.error("Error fetching user by ID:", error);
-        return res.status(500).json({ message: "Internal server error" });
+        return res.status(500).json({ message: error.message });
     }
 });
 // Update a user by ID
@@ -67,7 +66,7 @@ const updateUserById = (req, res) => __awaiter(void 0, void 0, void 0, function*
     }
     catch (error) {
         console.error("Error updating user:", error);
-        return res.status(500).json({ message: "Internal server error" });
+        return res.status(500).json({ message: error.message });
     }
 });
 // Delete a user by ID
@@ -82,7 +81,7 @@ const deleteUserById = (req, res) => __awaiter(void 0, void 0, void 0, function*
     }
     catch (error) {
         console.error("Error deleting user:", error);
-        return res.status(500).json({ message: "Internal server error" });
+        return res.status(500).json({ message: error.message });
     }
 });
 module.exports = {

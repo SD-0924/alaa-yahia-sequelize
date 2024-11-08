@@ -23,12 +23,14 @@ export const getPosts = async (req: Request, res: Response) => {
   try {
     const posts = await Post.findAll({
       include: [
-        { model: User, as: "user", attributes: ["id", "name", "email"] },
+        { model: User, as: "user", attributes: ["id", "username", "email"] },
         { model: Category, as: "categories", through: { attributes: [] } },
         {
           model: Comment,
           as: "comments",
-          include: [{ model: User, as: "user", attributes: ["id", "name"] }],
+          include: [
+            { model: User, as: "user", attributes: ["id", "username"] },
+          ],
         },
       ],
     });
@@ -41,15 +43,17 @@ export const getPosts = async (req: Request, res: Response) => {
 // Get post by ID with associated users, categories, and comments
 export const getPostById = async (req: Request, res: Response) => {
   try {
-    const { id } = req.params;
-    const post = await Post.findByPk(id, {
+    const { postId } = req.params;
+    const post = await Post.findByPk(postId, {
       include: [
-        { model: User, as: "user", attributes: ["id", "name", "email"] },
+        { model: User, as: "user", attributes: ["id", "username", "email"] },
         { model: Category, as: "categories", through: { attributes: [] } },
         {
           model: Comment,
           as: "comments",
-          include: [{ model: User, as: "user", attributes: ["id", "name"] }],
+          include: [
+            { model: User, as: "user", attributes: ["id", "username"] },
+          ],
         },
       ],
     });
@@ -66,9 +70,9 @@ export const getPostById = async (req: Request, res: Response) => {
 // Update post by ID
 export const updatePostById = async (req: Request, res: Response) => {
   try {
-    const { id } = req.params;
+    const { postId } = req.params;
     const { title, content } = req.body;
-    const post = await Post.findByPk(id);
+    const post = await Post.findByPk(postId);
     if (post) {
       post.title = title;
       post.content = content;
@@ -85,8 +89,8 @@ export const updatePostById = async (req: Request, res: Response) => {
 // Delete post by ID
 export const deletePostById = async (req: Request, res: Response) => {
   try {
-    const { id } = req.params;
-    const deleted = await Post.destroy({ where: { id } });
+    const { postId } = req.params;
+    const deleted = await Post.destroy({ where: { id: postId } });
     if (deleted) {
       res.status(200).json({ message: "Post deleted successfully" });
     } else {
@@ -171,7 +175,9 @@ export const getCommentsForPost = async (req: Request, res: Response) => {
         {
           model: Comment,
           as: "comments",
-          include: [{ model: User, as: "user", attributes: ["id", "name"] }],
+          include: [
+            { model: User, as: "user", attributes: ["id", "username"] },
+          ],
         },
       ],
     });

@@ -71,7 +71,7 @@ User.init(
 
 // Associations
 User.hasMany(Post, { foreignKey: "userId", as: "posts" });
-Post.belongsTo(User, { foreignKey: "userId", as: "author" });
+Post.belongsTo(User, { foreignKey: "userId", as: "user" });
 
 User.hasMany(Comment, { foreignKey: "userId", as: "comments" });
 Comment.belongsTo(User, { foreignKey: "userId", as: "user" });

@@ -36,7 +36,7 @@ const getPosts = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const posts = yield postModel_1.default.findAll({
             include: [
-                { model: userModel_1.default, as: "author", attributes: ["id", "name", "email"] },
+                { model: userModel_1.default, as: "user", attributes: ["id", "name", "email"] },
                 { model: categoryModel_1.default, as: "categories", through: { attributes: [] } },
                 {
                     model: commentModel_1.default,
@@ -58,7 +58,7 @@ const getPostById = (req, res) => __awaiter(void 0, void 0, void 0, function* ()
         const { id } = req.params;
         const post = yield postModel_1.default.findByPk(id, {
             include: [
-                { model: userModel_1.default, as: "author", attributes: ["id", "name", "email"] },
+                { model: userModel_1.default, as: "user", attributes: ["id", "name", "email"] },
                 { model: categoryModel_1.default, as: "categories", through: { attributes: [] } },
                 {
                     model: commentModel_1.default,
