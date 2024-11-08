@@ -30,7 +30,6 @@ PostCategory.init({
     sequelize: config_1.default,
     tableName: "post_categories",
 });
-// Associations for many-to-many relationship
 postModel_1.default.belongsToMany(categoryModel_1.default, {
     through: PostCategory,
     foreignKey: "postId",

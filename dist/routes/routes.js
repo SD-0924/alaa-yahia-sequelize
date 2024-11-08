@@ -36,12 +36,14 @@ router.put(
 router.delete(
 // Delete post by ID
 "/api/posts/:postId", posts.deletePostById);
+// Category Routes
 router.post(
 // Create a new category for a post
 "/api/posts/:postId/categories", posts.createCategoryForPost);
 router.get(
 // Get categories for a specific post
 "/api/posts/:postId/categories", posts.getCategoriesForPost);
+// Comments Routes
 router.post(
 // Create a new comment for a post
 "/api/posts/:postId/comments", posts.createCommentForPost);

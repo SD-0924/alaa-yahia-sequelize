@@ -80,6 +80,8 @@ router.get(
   posts.getCategoriesForPost
 );
 
+// Comments Routes
+
 router.post(
   // Create a new comment for a post
   "/api/posts/:postId/comments",

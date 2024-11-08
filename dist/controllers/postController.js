@@ -36,12 +36,14 @@ const getPosts = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const posts = yield postModel_1.default.findAll({
             include: [
-                { model: userModel_1.default, as: "user", attributes: ["id", "name", "email"] },
+                { model: userModel_1.default, as: "user", attributes: ["id", "username", "email"] },
                 { model: categoryModel_1.default, as: "categories", through: { attributes: [] } },
                 {
                     model: commentModel_1.default,
                     as: "comments",
-                    include: [{ model: userModel_1.default, as: "user", attributes: ["id", "name"] }],
+                    include: [
+                        { model: userModel_1.default, as: "user", attributes: ["id", "username"] },
+                    ],
                 },
             ],
         });
@@ -55,15 +57,17 @@ exports.getPosts = getPosts;
 // Get post by ID with associated users, categories, and comments
 const getPostById = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const { id } = req.params;
-        const post = yield postModel_1.default.findByPk(id, {
+        const { postId } = req.params;
+        const post = yield postModel_1.default.findByPk(postId, {
             include: [
-                { model: userModel_1.default, as: "user", attributes: ["id", "name", "email"] },
+                { model: userModel_1.default, as: "user", attributes: ["id", "username", "email"] },
                 { model: categoryModel_1.default, as: "categories", through: { attributes: [] } },
                 {
                     model: commentModel_1.default,
                     as: "comments",
-                    include: [{ model: userModel_1.default, as: "user", attributes: ["id", "name"] }],
+                    include: [
+                        { model: userModel_1.default, as: "user", attributes: ["id", "username"] },
+                    ],
                 },
             ],
         });
@@ -82,9 +86,9 @@ exports.getPostById = getPostById;
 // Update post by ID
 const updatePostById = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const { id } = req.params;
+        const { postId } = req.params;
         const { title, content } = req.body;
-        const post = yield postModel_1.default.findByPk(id);
+        const post = yield postModel_1.default.findByPk(postId);
         if (post) {
             post.title = title;
             post.content = content;
@@ -103,8 +107,8 @@ exports.updatePostById = updatePostById;
 // Delete post by ID
 const deletePostById = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const { id } = req.params;
-        const deleted = yield postModel_1.default.destroy({ where: { id } });
+        const { postId } = req.params;
+        const deleted = yield postModel_1.default.destroy({ where: { id: postId } });
         if (deleted) {
             res.status(200).json({ message: "Post deleted successfully" });
         }
@@ -120,11 +124,14 @@ exports.deletePostById = deletePostById;
 // Create a new category for a post
 const createCategoryForPost = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const { postId, categoryId } = req.body;
+        const postId = parseInt(req.params.postId);
+        const { categoryName } = req.body;
         const post = yield postModel_1.default.findByPk(postId);
-        const category = yield categoryModel_1.default.findByPk(categoryId);
+        const [category] = yield categoryModel_1.default.findOrCreate({
+            where: { name: categoryName },
+        });
         if (post && category) {
-            yield postCategoryModelJunction_1.default.create({ postId, categoryId });
+            yield postCategoryModelJunction_1.default.create({ postId, categoryId: category.dataValues.id });
             res.status(201).json({ message: "Category added to post successfully" });
         }
         else {
@@ -194,7 +201,9 @@ const getCommentsForPost = (req, res) => __awaiter(void 0, void 0, void 0, funct
                 {
                     model: commentModel_1.default,
                     as: "comments",
-                    include: [{ model: userModel_1.default, as: "user", attributes: ["id", "name"] }],
+                    include: [
+                        { model: userModel_1.default, as: "user", attributes: ["id", "username"] },
+                    ],
                 },
             ],
         });

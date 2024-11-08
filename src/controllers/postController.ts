@@ -104,12 +104,16 @@ export const deletePostById = async (req: Request, res: Response) => {
 // Create a new category for a post
 export const createCategoryForPost = async (req: Request, res: Response) => {
   try {
-    const { postId, categoryId } = req.body;
+    const postId = parseInt(req.params.postId);
+    const { categoryName } = req.body;
+
     const post = await Post.findByPk(postId);
-    const category = await Category.findByPk(categoryId);
+    const [category] = await Category.findOrCreate({
+      where: { name: categoryName },
+    });
 
     if (post && category) {
-      await PostCategory.create({ postId, categoryId });
+      await PostCategory.create({ postId, categoryId: category.dataValues.id });
       res.status(201).json({ message: "Category added to post successfully" });
     } else {
       res.status(404).json({ message: "Post or Category not found" });
