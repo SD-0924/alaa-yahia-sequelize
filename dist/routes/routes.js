@@ -10,21 +10,15 @@ router.get(
 router.post(
 // Create a new user
 "/api/users", users.createUser);
-// router.get(
-//   // Get user by ID
-//   "/api/users/:userId",
-//   userController.getUserById
-// );
-// router.put(
-//   // Update user by ID
-//   "/api/users/:userId",
-//   userController.updateUserById
-// );
-// router.delete(
-//   // Delete user by ID
-//   "/api/users/:userId",
-//   userController.deleteUserById
-// );
+router.get(
+// Get user by ID
+"/api/users/:userId", users.getUserById);
+router.put(
+// Update user by ID
+"/api/users/:userId", users.updateUserById);
+router.delete(
+// Delete user by ID
+"/api/users/:userId", users.deleteUserById);
 // // Posts Routes
 // router.post(
 //   // Create a new post
