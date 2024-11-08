@@ -28,7 +28,7 @@ const createUser = async (req: Request, res: Response): Promise<Response> => {
 // Get a user by ID
 const getUserById = async (req: Request, res: Response): Promise<Response> => {
   try {
-    const user = await User.findByPk(req.params.id);
+    const user = await User.findByPk(req.params.userId);
     if (!user) {
       return res.status(404).json({ message: "User not found" });
     }
@@ -46,7 +46,7 @@ const updateUserById = async (
 ): Promise<Response> => {
   try {
     const { username, email, password } = req.body;
-    const user = await User.findByPk(req.params.id);
+    const user = await User.findByPk(req.params.userId);
     if (!user) {
       return res.status(404).json({ message: "User not found" });
     }
@@ -67,7 +67,7 @@ const deleteUserById = async (
   res: Response
 ): Promise<Response> => {
   try {
-    const user = await User.findByPk(req.params.id);
+    const user = await User.findByPk(req.params.userId);
     if (!user) {
       return res.status(404).json({ message: "User not found" });
     }
