@@ -26,7 +26,6 @@ class User
   public readonly updatedAt!: Date;
 }
 
-// Initialize the User model with Sequelize
 User.init(
   {
     id: {

@@ -1,6 +1,5 @@
 import { DataTypes, Model, Optional } from "sequelize";
 import sequelize from "../config/config";
-import User from "./userModel";
 import Post from "./postModel";
 
 interface CommentAttributes {

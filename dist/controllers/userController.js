@@ -36,7 +36,6 @@ const createUser = (req, res) => __awaiter(void 0, void 0, void 0, function* () 
         return res.status(500).json({ message: error.message });
     }
 });
-// Get a user by ID
 const getUserById = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const user = yield userModel_1.default.findByPk(req.params.userId);
@@ -50,7 +49,6 @@ const getUserById = (req, res) => __awaiter(void 0, void 0, void 0, function* ()
         return res.status(500).json({ message: error.message });
     }
 });
-// Update a user by ID
 const updateUserById = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const { username, email, password } = req.body;
@@ -69,7 +67,6 @@ const updateUserById = (req, res) => __awaiter(void 0, void 0, void 0, function*
         return res.status(500).json({ message: error.message });
     }
 });
-// Delete a user by ID
 const deleteUserById = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const user = yield userModel_1.default.findByPk(req.params.userId);

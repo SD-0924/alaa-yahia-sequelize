@@ -4,7 +4,7 @@ const router = express.Router();
 const users = require("../controllers/userController");
 const posts = require("../controllers/postController");
 const middleware = require("../middlewares/middlewares");
-//User Routes
+/**User Routes*/
 router.get(
 // Get all users
 "/api/users", users.getUsers);
@@ -20,7 +20,7 @@ router.put(
 router.delete(
 // Delete user by ID
 "/api/users/:userId", users.deleteUserById);
-// Posts Routes
+/**Posts Routes*/
 router.post(
 // Create a new post
 "/api/posts", posts.createPost);
@@ -36,14 +36,14 @@ router.put(
 router.delete(
 // Delete post by ID
 "/api/posts/:postId", posts.deletePostById);
-// Category Routes
+/**Category Routes*/
 router.post(
 // Create a new category for a post
 "/api/posts/:postId/categories", posts.createCategoryForPost);
 router.get(
 // Get categories for a specific post
 "/api/posts/:postId/categories", posts.getCategoriesForPost);
-// Comments Routes
+/**Comments Routes*/
 router.post(
 // Create a new comment for a post
 "/api/posts/:postId/comments", posts.createCommentForPost);

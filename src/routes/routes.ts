@@ -5,7 +5,7 @@ const posts = require("../controllers/postController");
 
 const middleware = require("../middlewares/middlewares");
 
-//User Routes
+/**User Routes*/
 router.get(
   // Get all users
   "/api/users",
@@ -36,7 +36,7 @@ router.delete(
   users.deleteUserById
 );
 
-// Posts Routes
+/**Posts Routes*/
 router.post(
   // Create a new post
   "/api/posts",
@@ -67,7 +67,7 @@ router.delete(
   posts.deletePostById
 );
 
-// Category Routes
+/**Category Routes*/
 router.post(
   // Create a new category for a post
   "/api/posts/:postId/categories",
@@ -80,8 +80,7 @@ router.get(
   posts.getCategoriesForPost
 );
 
-// Comments Routes
-
+/**Comments Routes*/
 router.post(
   // Create a new comment for a post
   "/api/posts/:postId/comments",

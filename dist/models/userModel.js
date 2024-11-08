@@ -9,7 +9,6 @@ const postModel_1 = __importDefault(require("./postModel"));
 const commentModel_1 = __importDefault(require("./commentModel"));
 class User extends sequelize_1.Model {
 }
-// Initialize the User model with Sequelize
 User.init({
     id: {
         type: sequelize_1.DataTypes.INTEGER,

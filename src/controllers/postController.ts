@@ -1,5 +1,3 @@
-// src/controllers/PostController.ts
-
 import { Request, Response } from "express";
 import Post from "../models/postModel";
 import Category from "../models/categoryModel";
@@ -7,7 +5,6 @@ import Comment from "../models/commentModel";
 import User from "../models/userModel";
 import PostCategory from "../models/postCategoryModelJunction";
 
-// Create a new post
 export const createPost = async (req: Request, res: Response) => {
   try {
     const { title, content, userId } = req.body;
@@ -18,7 +15,6 @@ export const createPost = async (req: Request, res: Response) => {
   }
 };
 
-// Get all posts with associated users, categories, and comments
 export const getPosts = async (req: Request, res: Response) => {
   try {
     const posts = await Post.findAll({
@@ -40,7 +36,6 @@ export const getPosts = async (req: Request, res: Response) => {
   }
 };
 
-// Get post by ID with associated users, categories, and comments
 export const getPostById = async (req: Request, res: Response) => {
   try {
     const { postId } = req.params;
@@ -67,7 +62,6 @@ export const getPostById = async (req: Request, res: Response) => {
   }
 };
 
-// Update post by ID
 export const updatePostById = async (req: Request, res: Response) => {
   try {
     const { postId } = req.params;
@@ -86,7 +80,6 @@ export const updatePostById = async (req: Request, res: Response) => {
   }
 };
 
-// Delete post by ID
 export const deletePostById = async (req: Request, res: Response) => {
   try {
     const { postId } = req.params;
@@ -101,7 +94,6 @@ export const deletePostById = async (req: Request, res: Response) => {
   }
 };
 
-// Create a new category for a post
 export const createCategoryForPost = async (req: Request, res: Response) => {
   try {
     const postId = parseInt(req.params.postId);
@@ -123,7 +115,6 @@ export const createCategoryForPost = async (req: Request, res: Response) => {
   }
 };
 
-// Get categories for a specific post
 export const getCategoriesForPost = async (req: Request, res: Response) => {
   try {
     const { postId } = req.params;
@@ -145,7 +136,6 @@ export const getCategoriesForPost = async (req: Request, res: Response) => {
   }
 };
 
-// Create a new comment for a post
 export const createCommentForPost = async (req: Request, res: Response) => {
   try {
     const { postId } = req.params;
@@ -170,7 +160,6 @@ export const createCommentForPost = async (req: Request, res: Response) => {
   }
 };
 
-// Get comments for a specific post
 export const getCommentsForPost = async (req: Request, res: Response) => {
   try {
     const { postId } = req.params;

@@ -1,5 +1,4 @@
 "use strict";
-// src/controllers/PostController.ts
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
@@ -19,7 +18,6 @@ const categoryModel_1 = __importDefault(require("../models/categoryModel"));
 const commentModel_1 = __importDefault(require("../models/commentModel"));
 const userModel_1 = __importDefault(require("../models/userModel"));
 const postCategoryModelJunction_1 = __importDefault(require("../models/postCategoryModelJunction"));
-// Create a new post
 const createPost = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const { title, content, userId } = req.body;
@@ -31,7 +29,6 @@ const createPost = (req, res) => __awaiter(void 0, void 0, void 0, function* () 
     }
 });
 exports.createPost = createPost;
-// Get all posts with associated users, categories, and comments
 const getPosts = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const posts = yield postModel_1.default.findAll({
@@ -54,7 +51,6 @@ const getPosts = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     }
 });
 exports.getPosts = getPosts;
-// Get post by ID with associated users, categories, and comments
 const getPostById = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const { postId } = req.params;
@@ -83,7 +79,6 @@ const getPostById = (req, res) => __awaiter(void 0, void 0, void 0, function* ()
     }
 });
 exports.getPostById = getPostById;
-// Update post by ID
 const updatePostById = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const { postId } = req.params;
@@ -104,7 +99,6 @@ const updatePostById = (req, res) => __awaiter(void 0, void 0, void 0, function*
     }
 });
 exports.updatePostById = updatePostById;
-// Delete post by ID
 const deletePostById = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const { postId } = req.params;
@@ -121,7 +115,6 @@ const deletePostById = (req, res) => __awaiter(void 0, void 0, void 0, function*
     }
 });
 exports.deletePostById = deletePostById;
-// Create a new category for a post
 const createCategoryForPost = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const postId = parseInt(req.params.postId);
@@ -143,7 +136,6 @@ const createCategoryForPost = (req, res) => __awaiter(void 0, void 0, void 0, fu
     }
 });
 exports.createCategoryForPost = createCategoryForPost;
-// Get categories for a specific post
 const getCategoriesForPost = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const { postId } = req.params;
@@ -166,7 +158,6 @@ const getCategoriesForPost = (req, res) => __awaiter(void 0, void 0, void 0, fun
     }
 });
 exports.getCategoriesForPost = getCategoriesForPost;
-// Create a new comment for a post
 const createCommentForPost = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const { postId } = req.params;
@@ -192,7 +183,6 @@ const createCommentForPost = (req, res) => __awaiter(void 0, void 0, void 0, fun
     }
 });
 exports.createCommentForPost = createCommentForPost;
-// Get comments for a specific post
 const getCommentsForPost = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const { postId } = req.params;

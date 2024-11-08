@@ -24,7 +24,6 @@ const createUser = async (req: Request, res: Response): Promise<Response> => {
   }
 };
 
-// Get a user by ID
 const getUserById = async (req: Request, res: Response): Promise<Response> => {
   try {
     const user = await User.findByPk(req.params.userId);
@@ -38,7 +37,6 @@ const getUserById = async (req: Request, res: Response): Promise<Response> => {
   }
 };
 
-// Update a user by ID
 const updateUserById = async (
   req: Request,
   res: Response
@@ -60,7 +58,6 @@ const updateUserById = async (
   }
 };
 
-// Delete a user by ID
 const deleteUserById = async (
   req: Request,
   res: Response

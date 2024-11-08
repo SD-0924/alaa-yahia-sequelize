@@ -53,7 +53,7 @@ const initializeDatabase = () => __awaiter(void 0, void 0, void 0, function* () 
         yield createDatabase();
         yield config_1.default.authenticate();
         console.log("Database connection has been established successfully.");
-        yield config_1.default.sync({ alter: true }); // Use `{ force: true }` ??
+        yield config_1.default.sync({ alter: true });
         console.log("All models were synchronized successfully.");
     }
     catch (error) {

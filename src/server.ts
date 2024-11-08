@@ -50,7 +50,7 @@ const initializeDatabase = async () => {
     await sequelize.authenticate();
     console.log("Database connection has been established successfully.");
 
-    await sequelize.sync({ alter: true }); // Use `{ force: true }` ??
+    await sequelize.sync({ alter: true });
     console.log("All models were synchronized successfully.");
   } catch (error) {
     console.error("Unable to connect to the database:", error);
