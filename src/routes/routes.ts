@@ -3,7 +3,7 @@ const router = express.Router();
 const users = require("../controllers/userController");
 const posts = require("../controllers/postController");
 
-const files_middleware = require("../middlewares/middlewares");
+const middleware = require("../middlewares/middlewares");
 
 //User Routes
 router.get(
@@ -36,59 +36,59 @@ router.delete(
   users.deleteUserById
 );
 
-// // Posts Routes
-// router.post(
-//   // Create a new post
-//   "/api/posts",
-//   controller.createPost
-// );
+// Posts Routes
+router.post(
+  // Create a new post
+  "/api/posts",
+  posts.createPost
+);
 
-// router.get(
-//   // Get all posts with associated users, categories, and comments
-//   "/api/posts",
-//   controller.getPosts
-// );
+router.get(
+  // Get all posts with associated users, categories, and comments
+  "/api/posts",
+  posts.getPosts
+);
 
-// router.get(
-//   // Get post by ID with associated users, categories, and comments
-//   "/api/posts/:postId",
-//   controller.getPostById
-// );
+router.get(
+  // Get post by ID with associated users, categories, and comments
+  "/api/posts/:postId",
+  posts.getPostById
+);
 
-// router.put(
-//   // Update post by ID
-//   "/api/posts/:postId",
-//   controller.updatePostById
-// );
+router.put(
+  // Update post by ID
+  "/api/posts/:postId",
+  posts.updatePostById
+);
 
-// router.delete(
-//   // Delete post by ID
-//   "/api/posts/:postId",
-//   controller.deletePostById
-// );
+router.delete(
+  // Delete post by ID
+  "/api/posts/:postId",
+  posts.deletePostById
+);
 
-// router.post(
-//   // Create a new category for a post
-//   "/api/posts/:postId/categories",
-//   controller.createCategoryForPost
-// );
+router.post(
+  // Create a new category for a post
+  "/api/posts/:postId/categories",
+  posts.createCategoryForPost
+);
 
-// router.get(
-//   // Get categories for a specific post
-//   "/api/posts/:postId/categories",
-//   controller.getCategoriesForPost
-// );
+router.get(
+  // Get categories for a specific post
+  "/api/posts/:postId/categories",
+  posts.getCategoriesForPost
+);
 
-// router.post(
-//   // Create a new comment for a post
-//   "/api/posts/:postId/comments",
-//   controller.createCommentForPost
-// );
+router.post(
+  // Create a new comment for a post
+  "/api/posts/:postId/comments",
+  posts.createCommentForPost
+);
 
-// router.get(
-//   // Get comments for a specific post
-//   "/api/posts/:postId/comments",
-//   controller.getCommentsForPost
-// );
+router.get(
+  // Get comments for a specific post
+  "/api/posts/:postId/comments",
+  posts.getCommentsForPost
+);
 
 module.exports = router;

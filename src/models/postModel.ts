@@ -19,6 +19,7 @@ class Post
   extends Model<PostAttributes, PostCreationAttributes>
   implements PostAttributes
 {
+  [x: string]: any;
   public id!: number;
   public title!: string;
   public content!: string;
