@@ -31,15 +31,6 @@ const PORT = process.env.PORT || 3000;
 
 const createDatabase = async () => {
   try {
-    // sequelizeDB = new Sequelize({
-    //   host: process.env.DB_HOST,
-    //   port: Number(process.env.DB_PORT) || 3306,
-    //   username: process.env.DB_USER || "root",
-    //   password: process.env.DB_PASSWORD || "123456",
-    //   dialect: "mysql",
-    //   logging: false,
-    // });
-
     await sequelizeDB.query(`CREATE DATABASE IF NOT EXISTS mydb;`);
     console.log(`Database "mydb" created or already exists.`);
 

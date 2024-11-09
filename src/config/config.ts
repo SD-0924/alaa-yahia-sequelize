@@ -10,7 +10,7 @@ const config = {
   }),
   test: new Sequelize({
     database: "test_db",
-    username: "root",
+    username: "test_user",
     password: "test_password",
     host: "127.0.0.1",
     dialect: "mysql",
