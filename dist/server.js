@@ -12,24 +12,25 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const express_1 = __importDefault(require("express"));
+// import express, { Request, Response } from "express";
 const sequelize_1 = require("sequelize");
-const bodyparser = require("body-parser");
+const app_1 = __importDefault(require("./app"));
+// const bodyparser = require("body-parser");
 const config_1 = __importDefault(require("./config/config"));
-const routes = require("./routes/routes");
-const app = (0, express_1.default)();
-app.use(bodyparser.urlencoded({ extended: true }));
-app.use(bodyparser.json());
-app.set("view engine", "ejs");
-app.use(express_1.default.static("./public/"));
+// const routes = require("./routes/routes");
+// const app = express();
+// app.use(bodyparser.urlencoded({ extended: true }));
+// app.use(bodyparser.json());
+// app.set("view engine", "ejs");
+// app.use(express.static("./public/"));
 const port = 3000;
-app.use(routes);
-app.use((err, req, res, next) => {
-    res.status(500).send(err.message);
-});
-app.all("*", (req, res) => {
-    res.status(404).send("Pequest not suported");
-});
+// app.use(routes);
+// app.use((err: Error, req: Request, res: Response, next: any) => {
+//   res.status(500).send(err.message);
+// });
+// app.all("*", (req, res) => {
+//   res.status(404).send("Pequest not suported");
+// });
 const createDatabase = () => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const sequelizeWithoutDb = new sequelize_1.Sequelize({
@@ -60,7 +61,7 @@ const initializeDatabase = () => __awaiter(void 0, void 0, void 0, function* () 
         console.error("Unable to connect to the database:", error);
     }
 });
-app.listen(port, () => __awaiter(void 0, void 0, void 0, function* () {
+app_1.default.listen(port, () => __awaiter(void 0, void 0, void 0, function* () {
     yield initializeDatabase();
     console.log(`Server is running on port ${port}`);
 }));
