@@ -16,9 +16,9 @@ const supertest_1 = __importDefault(require("supertest"));
 const app_1 = __importDefault(require("../../app"));
 let userId;
 const newUser = {
-    username: "Jane Doe",
-    email: "jane@example.com",
-    password: "password123",
+    username: "Alaa yahia user",
+    email: "alaaaaa@mail.com",
+    password: "123rty@",
 };
 describe("User Controller", () => {
     it("should create a new user", () => __awaiter(void 0, void 0, void 0, function* () {

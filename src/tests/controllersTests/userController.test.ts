@@ -4,9 +4,9 @@ import app from "../../app";
 let userId: number;
 
 const newUser = {
-  username: "Jane Doe",
-  email: "jane@example.com",
-  password: "password123",
+  username: "Alaa yahia user",
+  email: "alaaaaa@mail.com",
+  password: "123rty@",
 };
 
 describe("User Controller", () => {
