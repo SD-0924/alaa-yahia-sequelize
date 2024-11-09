@@ -30,8 +30,12 @@ const PORT = process.env.PORT || 3000;
 
 const createDatabase = async () => {
   try {
-    await sequelizeDB.query(`CREATE DATABASE IF NOT EXISTS mydb;`);
-    console.log(`Database "mydb" created or already exists.`);
+    await sequelizeDB.query(
+      `CREATE DATABASE IF NOT EXISTS ${sequelizeDB.getDatabaseName()};`
+    );
+    console.log(
+      `Database "${sequelizeDB.getDatabaseName()}" created or already exists.`
+    );
 
     // await sequelizeDB.close();
   } catch (error) {

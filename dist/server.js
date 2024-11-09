@@ -22,7 +22,6 @@ const config_1 = __importDefault(require("./config/config"));
 // app.set("view engine", "ejs");
 // app.use(express.static("./public/"));
 // const port: number = 3000;
-console.log(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>", process.env);
 let sequelizeDB = process.env.NODE_ENV == "test" ? config_1.default.test : config_1.default.development;
 const PORT = process.env.PORT || 3000;
 // app.use(routes);
@@ -34,8 +33,8 @@ const PORT = process.env.PORT || 3000;
 // });
 const createDatabase = () => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        yield sequelizeDB.query(`CREATE DATABASE IF NOT EXISTS mydb;`);
-        console.log(`Database "mydb" created or already exists.`);
+        yield sequelizeDB.query(`CREATE DATABASE IF NOT EXISTS ${sequelizeDB.getDatabaseName()};`);
+        console.log(`Database "${sequelizeDB.getDatabaseName()}" created or already exists.`);
         // await sequelizeDB.close();
     }
     catch (error) {
