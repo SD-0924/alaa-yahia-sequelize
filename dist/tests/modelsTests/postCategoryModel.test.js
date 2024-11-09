@@ -1,5 +1,4 @@
 "use strict";
-// tests/models/postCategoryModel.test.ts
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
@@ -11,12 +10,10 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const sequelize_1 = require("sequelize");
-// Mock Sequelize instance
 const sequelize = new sequelize_1.Sequelize({
     dialect: "sqlite",
     storage: ":memory:",
 });
-// Mock PostCategory model based on actual model structure
 const MockPostCategory = sequelize.define("post_category", {
     postId: {
         type: sequelize_1.DataTypes.INTEGER,
