@@ -12,6 +12,9 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+const dotenv_1 = __importDefault(require("dotenv"));
+// Load environment variables
+dotenv_1.default.config();
 const app_1 = __importDefault(require("./app"));
 // const bodyparser = require("body-parser");
 const config_1 = __importDefault(require("./config/config"));
@@ -55,7 +58,8 @@ const initializeDatabase = () => __awaiter(void 0, void 0, void 0, function* () 
         console.error("Unable to connect to the database:", error);
     }
 });
-app_1.default.listen(PORT, () => __awaiter(void 0, void 0, void 0, function* () {
+const listen = app_1.default.listen(PORT, () => __awaiter(void 0, void 0, void 0, function* () {
     yield initializeDatabase();
     console.log(`Server is running on port ${PORT}`);
 }));
+// export default listen;

@@ -1,5 +1,10 @@
 // import express, { Request, Response } from "express";
 import { Sequelize } from "sequelize";
+import dotenv from "dotenv";
+
+// Load environment variables
+dotenv.config();
+
 import app from "./app";
 // const bodyparser = require("body-parser");
 import config from "./config/config";
@@ -59,7 +64,9 @@ const initializeDatabase = async () => {
   }
 };
 
-app.listen(PORT, async () => {
+const listen = app.listen(PORT, async () => {
   await initializeDatabase();
   console.log(`Server is running on port ${PORT}`);
 });
+
+// export default listen;
