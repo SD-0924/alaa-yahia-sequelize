@@ -18,7 +18,7 @@ jobs:
         env:
           MYSQL_ROOT_PASSWORD: root
           MYSQL_DATABASE: test_db
-          MYSQL_USER: test_user
+          MYSQL_USER: root
           MYSQL_PASSWORD: test_password
         ports:
           - 3306:3306
@@ -44,7 +44,7 @@ jobs:
         env:
           DB_HOST: 127.0.0.1
           DB_PORT: 3306
-          DB_USER: test_user
+          DB_USER: root
           DB_PASSWORD: test_password
           DB_NAME: test_db
         run: |
@@ -54,7 +54,7 @@ jobs:
         env:
           DB_HOST: 127.0.0.1
           DB_PORT: 3306
-          DB_USER: test_user
+          DB_USER: root
           DB_PASSWORD: test_password
           DB_NAME: test_db
         run: npm test

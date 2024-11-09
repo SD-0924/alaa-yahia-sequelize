@@ -17,10 +17,10 @@ const config = {
         dialect: "mysql",
     }),
     test: new sequelize_1.Sequelize({
-        database: process.env.DB_NAME || "test_db",
-        username: process.env.DB_USER || "root",
-        password: process.env.DB_PASSWORD || "test_password",
-        host: process.env.DB_HOST || "127.0.0.1",
+        database: "test_db", // process.env.DB_NAME ||
+        username: "root", //process.env.DB_USER ||
+        password: "test_password", //process.env.DB_PASSWORD ||
+        host: "127.0.0.1", //process.env.DB_HOST ||
         dialect: "mysql",
         logging: false,
     }),
