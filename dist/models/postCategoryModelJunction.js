@@ -27,7 +27,7 @@ PostCategory.init({
         },
     },
 }, {
-    sequelize: config_1.default,
+    sequelize: config_1.default.development,
     tableName: "post_categories",
 });
 postModel_1.default.belongsToMany(categoryModel_1.default, {

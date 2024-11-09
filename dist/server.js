@@ -12,8 +12,6 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-// import express, { Request, Response } from "express";
-const sequelize_1 = require("sequelize");
 const app_1 = __importDefault(require("./app"));
 // const bodyparser = require("body-parser");
 const config_1 = __importDefault(require("./config/config"));
@@ -23,7 +21,9 @@ const config_1 = __importDefault(require("./config/config"));
 // app.use(bodyparser.json());
 // app.set("view engine", "ejs");
 // app.use(express.static("./public/"));
-const port = 3000;
+// const port: number = 3000;
+let sequelizeDB = process.env.NODE_ENV == "test" ? config_1.default.test : config_1.default.development;
+const PORT = process.env.PORT || 3000;
 // app.use(routes);
 // app.use((err: Error, req: Request, res: Response, next: any) => {
 //   res.status(500).send(err.message);
@@ -33,16 +33,17 @@ const port = 3000;
 // });
 const createDatabase = () => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const sequelizeWithoutDb = new sequelize_1.Sequelize({
-            host: "127.0.0.1",
-            username: "root",
-            password: "123456",
-            dialect: "mysql",
-            logging: false,
-        });
-        yield sequelizeWithoutDb.query(`CREATE DATABASE IF NOT EXISTS mydb;`);
+        // sequelizeDB = new Sequelize({
+        //   host: process.env.DB_HOST,
+        //   port: Number(process.env.DB_PORT) || 3306,
+        //   username: process.env.DB_USER || "root",
+        //   password: process.env.DB_PASSWORD || "123456",
+        //   dialect: "mysql",
+        //   logging: false,
+        // });
+        yield sequelizeDB.query(`CREATE DATABASE IF NOT EXISTS mydb;`);
         console.log(`Database "mydb" created or already exists.`);
-        yield sequelizeWithoutDb.close();
+        // await sequelizeDB.close();
     }
     catch (error) {
         console.error("Error creating database:", error);
@@ -52,16 +53,17 @@ const createDatabase = () => __awaiter(void 0, void 0, void 0, function* () {
 const initializeDatabase = () => __awaiter(void 0, void 0, void 0, function* () {
     try {
         yield createDatabase();
-        yield config_1.default.authenticate();
+        yield sequelizeDB.authenticate();
         console.log("Database connection has been established successfully.");
-        yield config_1.default.sync({ alter: true });
+        yield sequelizeDB.sync({ alter: true });
         console.log("All models were synchronized successfully.");
+        yield sequelizeDB.close();
     }
     catch (error) {
         console.error("Unable to connect to the database:", error);
     }
 });
-app_1.default.listen(port, () => __awaiter(void 0, void 0, void 0, function* () {
+app_1.default.listen(PORT, () => __awaiter(void 0, void 0, void 0, function* () {
     yield initializeDatabase();
-    console.log(`Server is running on port ${port}`);
+    console.log(`Server is running on port ${PORT}`);
 }));

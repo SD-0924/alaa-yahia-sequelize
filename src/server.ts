@@ -2,7 +2,7 @@
 import { Sequelize } from "sequelize";
 import app from "./app";
 // const bodyparser = require("body-parser");
-import sequelize from "./config/config";
+import config from "./config/config";
 // const routes = require("./routes/routes");
 
 // const app = express();
@@ -12,7 +12,10 @@ import sequelize from "./config/config";
 // app.set("view engine", "ejs");
 // app.use(express.static("./public/"));
 
-const port: number = 3000;
+// const port: number = 3000;
+let sequelizeDB: Sequelize =
+  process.env.NODE_ENV == "test" ? config.test : config.development;
+const PORT = process.env.PORT || 3000;
 
 // app.use(routes);
 
@@ -26,18 +29,19 @@ const port: number = 3000;
 
 const createDatabase = async () => {
   try {
-    const sequelizeWithoutDb = new Sequelize({
-      host: "127.0.0.1",
-      username: "root",
-      password: "123456",
-      dialect: "mysql",
-      logging: false,
-    });
+    // sequelizeDB = new Sequelize({
+    //   host: process.env.DB_HOST,
+    //   port: Number(process.env.DB_PORT) || 3306,
+    //   username: process.env.DB_USER || "root",
+    //   password: process.env.DB_PASSWORD || "123456",
+    //   dialect: "mysql",
+    //   logging: false,
+    // });
 
-    await sequelizeWithoutDb.query(`CREATE DATABASE IF NOT EXISTS mydb;`);
+    await sequelizeDB.query(`CREATE DATABASE IF NOT EXISTS mydb;`);
     console.log(`Database "mydb" created or already exists.`);
 
-    await sequelizeWithoutDb.close();
+    // await sequelizeDB.close();
   } catch (error) {
     console.error("Error creating database:", error);
     throw error;
@@ -48,17 +52,18 @@ const initializeDatabase = async () => {
   try {
     await createDatabase();
 
-    await sequelize.authenticate();
+    await sequelizeDB.authenticate();
     console.log("Database connection has been established successfully.");
 
-    await sequelize.sync({ alter: true });
+    await sequelizeDB.sync({ alter: true });
     console.log("All models were synchronized successfully.");
+    await sequelizeDB.close();
   } catch (error) {
     console.error("Unable to connect to the database:", error);
   }
 };
 
-app.listen(port, async () => {
+app.listen(PORT, async () => {
   await initializeDatabase();
-  console.log(`Server is running on port ${port}`);
+  console.log(`Server is running on port ${PORT}`);
 });

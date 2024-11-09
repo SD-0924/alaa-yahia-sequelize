@@ -19,7 +19,7 @@ Category.init({
         unique: true,
     },
 }, {
-    sequelize: config_1.default,
+    sequelize: config_1.default.development,
     tableName: "categories",
 });
 exports.default = Category;

@@ -1,5 +1,5 @@
 import { DataTypes, Model, Optional } from "sequelize";
-import sequelize from "../config/config";
+import config from "../config/config";
 
 interface CategoryAttributes {
   id: number;
@@ -35,7 +35,7 @@ Category.init(
     },
   },
   {
-    sequelize,
+    sequelize: config.development,
     tableName: "categories",
   }
 );

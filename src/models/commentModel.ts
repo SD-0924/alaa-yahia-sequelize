@@ -1,5 +1,5 @@
 import { DataTypes, Model, Optional } from "sequelize";
-import sequelize from "../config/config";
+import config from "../config/config";
 import Post from "./postModel";
 
 interface CommentAttributes {
@@ -46,7 +46,7 @@ Comment.init(
     },
   },
   {
-    sequelize,
+    sequelize: config.development,
     tableName: "comments",
   }
 );
