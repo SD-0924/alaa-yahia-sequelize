@@ -21,6 +21,11 @@ const newUser = {
     password: "123rty@",
 };
 describe("User Controller", () => {
+    beforeAll(() => __awaiter(void 0, void 0, void 0, function* () {
+        if (userId) {
+            yield (0, supertest_1.default)(app_1.default).delete("/api/users/" + userId.toString());
+        }
+    }));
     it("should create a new user", () => __awaiter(void 0, void 0, void 0, function* () {
         const response = yield (0, supertest_1.default)(app_1.default).post("/api/users").send(newUser);
         expect(response.status).toBe(201);

@@ -10,6 +10,11 @@ const newUser = {
 };
 
 describe("User Controller", () => {
+  beforeAll(async () => {
+    if (userId) {
+      await request(app).delete("/api/users/" + userId.toString());
+    }
+  });
   it("should create a new user", async () => {
     const response = await request(app).post("/api/users").send(newUser);
     expect(response.status).toBe(201);
