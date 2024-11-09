@@ -14,7 +14,6 @@ import config from "./config/config";
 
 // const port: number = 3000;
 
-console.log(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>", process.env);
 let sequelizeDB: Sequelize =
   process.env.NODE_ENV == "test" ? config.test : config.development;
 const PORT = process.env.PORT || 3000;

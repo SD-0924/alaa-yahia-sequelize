@@ -49,6 +49,7 @@ jobs:
 
       - name: Run migrations
         env:
+          NODE_ENV: test
           DB_HOST: 127.0.0.1
           DB_PORT: 3306
           DB_USER: test_user
@@ -58,6 +59,7 @@ jobs:
 
       - name: Run tests
         env:
+          NODE_ENV: test
           DB_HOST: 127.0.0.1
           DB_PORT: 3306
           DB_USER: test_user
