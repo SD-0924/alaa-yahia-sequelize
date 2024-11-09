@@ -22,7 +22,9 @@ const config_1 = __importDefault(require("./config/config"));
 // app.set("view engine", "ejs");
 // app.use(express.static("./public/"));
 // const port: number = 3000;
-let sequelizeDB = process.env.NODE_ENV == "test" ? config_1.default.test : config_1.default.development;
+// console.log(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>", process.env);
+let sequelizeDB = config_1.default.test;
+// process.env.NODE_ENV == "test" ? config.test : config.development;
 const PORT = process.env.PORT || 3000;
 // app.use(routes);
 // app.use((err: Error, req: Request, res: Response, next: any) => {
