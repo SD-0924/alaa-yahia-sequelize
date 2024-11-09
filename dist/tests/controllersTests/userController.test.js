@@ -1,5 +1,4 @@
 "use strict";
-// tests/controllers/userController.test.ts
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
@@ -33,9 +32,18 @@ describe("User Controller", () => {
         expect(response.status).toBe(200);
         expect(Array.isArray(response.body)).toBe(true);
     }));
-    it("should get the user by id", () => __awaiter(void 0, void 0, void 0, function* () {
-        const response = yield (0, supertest_1.default)(app_1.default).get("/api/users/" + userId);
-        expect(response.status).toBe(201);
+    it("should update the user by id", () => __awaiter(void 0, void 0, void 0, function* () {
+        const response = yield (0, supertest_1.default)(app_1.default).put("/api/users/" + userId.toString());
+        expect(response.status).toBe(200);
         expect(response.body.username).toBe(newUser.username);
+    }));
+    it("should get the user by id", () => __awaiter(void 0, void 0, void 0, function* () {
+        const response = yield (0, supertest_1.default)(app_1.default).get("/api/users/" + userId.toString());
+        expect(response.status).toBe(200);
+        expect(response.body.username).toBe(newUser.username);
+    }));
+    it("should delete the user by id", () => __awaiter(void 0, void 0, void 0, function* () {
+        const response = yield (0, supertest_1.default)(app_1.default).delete("/api/users/" + userId.toString());
+        expect(response.status).toBe(200);
     }));
 });

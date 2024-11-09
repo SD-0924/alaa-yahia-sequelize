@@ -1,5 +1,3 @@
-// tests/controllers/userController.test.ts
-
 import request from "supertest";
 import app from "../../app";
 
