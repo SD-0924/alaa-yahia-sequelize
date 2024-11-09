@@ -1,15 +1,11 @@
-// tests/models/postCategoryModel.test.ts
-
 import { Sequelize, DataTypes } from "sequelize";
 import PostCategory from "../../models/postCategoryModelJunction";
 
-// Mock Sequelize instance
 const sequelize = new Sequelize({
   dialect: "sqlite",
   storage: ":memory:",
 });
 
-// Mock PostCategory model based on actual model structure
 const MockPostCategory = sequelize.define("post_category", {
   postId: {
     type: DataTypes.INTEGER,

@@ -36,7 +36,7 @@ const MockPost = sequelize.define("post", {
 
 describe("Post Model", () => {
   beforeAll(async () => {
-    await sequelize.sync(); // Sync database before running tests
+    await sequelize.sync();
   });
 
   it("should create a new post", async () => {
