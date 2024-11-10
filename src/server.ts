@@ -65,11 +65,13 @@ const initializeDatabase = async () => {
 };
 console.log(">>>>>>>>>>>>server1>>>>>>>>>>>>", process.env.NODE_ENV);
 
-const listen = app.listen(PORT, async () => {
-  await initializeDatabase();
-  console.log(`Server is running on port ${PORT}`);
-});
+const listen = () =>
+  app.listen(PORT, async () => {
+    await initializeDatabase();
+    console.log(`Server is running on port ${PORT}`);
+  });
 
+listen();
 console.log(">>>>>>>>>>>>server>>>>>>>>>>>>", process.env.NODE_ENV);
 
 export default listen;

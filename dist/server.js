@@ -59,9 +59,10 @@ const initializeDatabase = () => __awaiter(void 0, void 0, void 0, function* () 
     }
 });
 console.log(">>>>>>>>>>>>server1>>>>>>>>>>>>", process.env.NODE_ENV);
-const listen = app_1.default.listen(PORT, () => __awaiter(void 0, void 0, void 0, function* () {
+const listen = () => app_1.default.listen(PORT, () => __awaiter(void 0, void 0, void 0, function* () {
     yield initializeDatabase();
     console.log(`Server is running on port ${PORT}`);
 }));
+listen();
 console.log(">>>>>>>>>>>>server>>>>>>>>>>>>", process.env.NODE_ENV);
 exports.default = listen;
