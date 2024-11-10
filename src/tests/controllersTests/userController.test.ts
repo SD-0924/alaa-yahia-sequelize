@@ -10,6 +10,8 @@ const newUser = {
 };
 
 describe("User Controller", () => {
+  console.log(">>>>>>>>>>>>user controller>>>>>>>>>>>>", process.env.NODE_ENV);
+
   beforeAll(async () => {
     if (userId) {
       await request(app).delete("/api/users/" + userId.toString());

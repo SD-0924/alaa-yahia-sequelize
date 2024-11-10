@@ -1,8 +1,12 @@
 import express, { Application, Request, Response } from "express";
 const routes = require("./routes/routes");
 const bodyparser = require("body-parser");
+import dotenv from "dotenv";
+dotenv.config();
 
 const app: Application = express();
+
+console.log(">>>>>>>>>>>>app>>>>>>>>>>>>", process.env.NODE_ENV);
 
 app.use(bodyparser.urlencoded({ extended: true }));
 app.use(bodyparser.json());

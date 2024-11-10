@@ -63,10 +63,13 @@ const initializeDatabase = async () => {
     console.error("Unable to connect to the database:", error);
   }
 };
+console.log(">>>>>>>>>>>>server1>>>>>>>>>>>>", process.env.NODE_ENV);
 
 const listen = app.listen(PORT, async () => {
   await initializeDatabase();
   console.log(`Server is running on port ${PORT}`);
 });
+
+console.log(">>>>>>>>>>>>server>>>>>>>>>>>>", process.env.NODE_ENV);
 
 // export default listen;

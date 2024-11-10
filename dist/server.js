@@ -58,8 +58,10 @@ const initializeDatabase = () => __awaiter(void 0, void 0, void 0, function* () 
         console.error("Unable to connect to the database:", error);
     }
 });
+console.log(">>>>>>>>>>>>server1>>>>>>>>>>>>", process.env.NODE_ENV);
 const listen = app_1.default.listen(PORT, () => __awaiter(void 0, void 0, void 0, function* () {
     yield initializeDatabase();
     console.log(`Server is running on port ${PORT}`);
 }));
+console.log(">>>>>>>>>>>>server>>>>>>>>>>>>", process.env.NODE_ENV);
 // export default listen;
