@@ -64,4 +64,4 @@ const listen = app_1.default.listen(PORT, () => __awaiter(void 0, void 0, void 0
     console.log(`Server is running on port ${PORT}`);
 }));
 console.log(">>>>>>>>>>>>server>>>>>>>>>>>>", process.env.NODE_ENV);
-// export default listen;
+exports.default = listen;

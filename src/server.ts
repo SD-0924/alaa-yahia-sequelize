@@ -72,4 +72,4 @@ const listen = app.listen(PORT, async () => {
 
 console.log(">>>>>>>>>>>>server>>>>>>>>>>>>", process.env.NODE_ENV);
 
-// export default listen;
+export default listen;
