@@ -4,9 +4,9 @@
   "description": "",
   "main": "src/server.ts",
   "scripts": {
-    "start": "set NODE_ENV=development && nodemon --exec ts-node src/server.ts",
+    "start": "SET NODE_ENV=development && nodemon --exec ts-node src/server.ts",
     "build": "tsc",
-    "test": "set NODE_ENV=test && jest"
+    "test": "jest"
   },
   "author": "",
   "license": "ISC",

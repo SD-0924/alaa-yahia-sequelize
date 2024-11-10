@@ -52,10 +52,10 @@ jobs:
           NODE_ENV: test
           DB_HOST: 127.0.0.1
           DB_PORT: 3306
-          DB_USER: root # Set root as the user for test
+          DB_USER: root
           DB_PASSWORD: ${{ secrets.TEST_DB_PASSWORD}}
           DB_NAME: ${{ secrets.TEST_DB_NAME }}
-          MYSQL_ROOT_PASSWORD: ${{ secrets.MYSQL_ROOT_PASSWORD }} # Use a password from GitHub Secrets
+          MYSQL_ROOT_PASSWORD: ${{ secrets.MYSQL_ROOT_PASSWORD }} //123456
         run: npx sequelize-cli db:migrate
 
       - name: Run tests
