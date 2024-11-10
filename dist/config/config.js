@@ -11,8 +11,8 @@ const config = {
     }),
     test: new sequelize_1.Sequelize({
         database: "test_db",
-        username: "root",
-        password: "root",
+        username: "test_user",
+        password: "test_password",
         host: "127.0.0.1",
         dialect: "mysql",
         logging: false,
