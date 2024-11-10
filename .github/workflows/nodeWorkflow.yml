@@ -54,6 +54,7 @@ jobs:
           DB_USER: root # Set root as the user for test
           DB_PASSWORD: ${{ secrets.TEST_DB_PASSWORD}}
           DB_NAME: ${{ secrets.TEST_DB_NAME }}
+          MYSQL_ROOT_PASSWORD: ${{ secrets.MYSQL_ROOT_PASSWORD }} # Use a password from GitHub Secrets
         run: npx sequelize-cli db:migrate
 
       - name: Run tests
@@ -64,4 +65,5 @@ jobs:
           DB_USER: root # Use root for test user
           DB_PASSWORD: ${{ secrets.TEST_DB_PASSWORD }}
           DB_NAME: ${{ secrets.TEST_DB_NAME }}
+          MYSQL_ROOT_PASSWORD: ${{ secrets.MYSQL_ROOT_PASSWORD }} # Use a password from GitHub Secrets
         run: npm test
