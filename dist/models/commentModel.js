@@ -27,7 +27,7 @@ Comment.init({
         allowNull: false,
     },
 }, {
-    sequelize: config_1.default.development,
+    sequelize: config_1.default,
     tableName: "comments",
 });
 Comment.belongsTo(postModel_1.default, { foreignKey: "postId", as: "post" });

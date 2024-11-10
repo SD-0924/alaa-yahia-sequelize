@@ -39,7 +39,7 @@ User.init({
         defaultValue: sequelize_1.DataTypes.NOW,
     },
 }, {
-    sequelize: config_1.default.development,
+    sequelize: config_1.default,
     tableName: "users",
 });
 User.hasMany(postModel_1.default, { foreignKey: "userId", as: "posts" });

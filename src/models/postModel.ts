@@ -1,6 +1,5 @@
 import { DataTypes, Model, Optional } from "sequelize";
-import config from "../config/config";
-import User from "./userModel";
+import sequelize from "../config/config";
 
 interface PostAttributes {
   id: number;
@@ -47,7 +46,7 @@ Post.init(
     },
   },
   {
-    sequelize: config.development,
+    sequelize,
     tableName: "posts",
   }
 );

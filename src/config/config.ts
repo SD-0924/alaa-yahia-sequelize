@@ -1,22 +1,24 @@
-import { Sequelize } from "sequelize";
+require("dotenv").config();
+const { Sequelize } = require("sequelize");
 
-const config = {
-  development: new Sequelize({
-    database: "mydb",
-    username: "root",
-    password: "123456",
-    host: "localhost",
+// Set up different database connections based on environment
+const sequelize = new Sequelize(
+  process.env.NODE_ENV === "test"
+    ? process.env.TEST_DB_NAME
+    : process.env.DB_NAME,
+  process.env.NODE_ENV === "test"
+    ? process.env.TEST_DB_USER
+    : process.env.DB_USER,
+  process.env.NODE_ENV === "test"
+    ? process.env.TEST_DB_PASSWORD
+    : process.env.DB_PASSWORD,
+  {
+    host:
+      process.env.NODE_ENV === "test"
+        ? process.env.TEST_DB_HOST
+        : process.env.DB_HOST,
     dialect: "mysql",
-  }),
-  test: new Sequelize({
-    database: "test_db",
-    username: "test_user",
-    password: "test_password",
-    host: "127.0.0.1",
-    dialect: "mysql",
-    logging: false,
-  }),
-};
+  }
+);
 
-export default config;
-// export default sequelize;
+export default sequelize;

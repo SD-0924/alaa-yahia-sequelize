@@ -21,7 +21,6 @@ const newUser = {
     password: "123rty@",
 };
 describe("User Controller", () => {
-    console.log(">>>>>>>>>>>>user controller>>>>>>>>>>>>", process.env.NODE_ENV);
     beforeAll(() => __awaiter(void 0, void 0, void 0, function* () {
         if (userId) {
             yield (0, supertest_1.default)(app_1.default).delete("/api/users/" + userId.toString());

@@ -1,6 +1,5 @@
 import request from "supertest";
 import app from "../../app";
-import listen from "../../server";
 
 let userId: number;
 
@@ -11,8 +10,6 @@ const newUser = {
 };
 
 describe("User Controller", () => {
-  console.log(">>>>>>>>>>>>user controller>>>>>>>>>>>>", process.env.NODE_ENV);
-
   beforeAll(async () => {
     if (userId) {
       await request(app).delete("/api/users/" + userId.toString());

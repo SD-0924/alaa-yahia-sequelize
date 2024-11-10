@@ -25,7 +25,7 @@ const config_1 = __importDefault(require("./config/config"));
 // app.set("view engine", "ejs");
 // app.use(express.static("./public/"));
 // const port: number = 3000;
-let sequelizeDB = process.env.NODE_ENV == "test" ? config_1.default.test : config_1.default.development;
+const sequelizeDB = config_1.default;
 const PORT = process.env.PORT || 3000;
 // app.use(routes);
 // app.use((err: Error, req: Request, res: Response, next: any) => {
@@ -58,10 +58,7 @@ const initializeDatabase = () => __awaiter(void 0, void 0, void 0, function* () 
         console.error("Unable to connect to the database:", error);
     }
 });
-console.log(">>>>>>>>>>>>server1>>>>>>>>>>>>", process.env.NODE_ENV);
-const listen = app_1.default.listen(PORT, () => __awaiter(void 0, void 0, void 0, function* () {
+app_1.default.listen(PORT, () => __awaiter(void 0, void 0, void 0, function* () {
     yield initializeDatabase();
     console.log(`Server is running on port ${PORT}`);
 }));
-console.log(">>>>>>>>>>>>server>>>>>>>>>>>>", process.env.NODE_ENV);
-exports.default = listen;

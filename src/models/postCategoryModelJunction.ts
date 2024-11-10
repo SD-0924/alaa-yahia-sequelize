@@ -1,5 +1,5 @@
 import { DataTypes, Model } from "sequelize";
-import config from "../config/config";
+import sequelize from "../config/config";
 import Post from "./postModel";
 import Category from "./categoryModel";
 
@@ -40,7 +40,7 @@ PostCategory.init(
     },
   },
   {
-    sequelize: config.development,
+    sequelize,
     tableName: "post_categories",
   }
 );

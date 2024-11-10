@@ -26,7 +26,7 @@ Post.init({
         allowNull: false,
     },
 }, {
-    sequelize: config_1.default.development,
+    sequelize: config_1.default,
     tableName: "posts",
 });
 exports.default = Post;

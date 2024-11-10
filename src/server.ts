@@ -7,7 +7,7 @@ dotenv.config();
 
 import app from "./app";
 // const bodyparser = require("body-parser");
-import config from "./config/config";
+import sequelize from "./config/config";
 // const routes = require("./routes/routes");
 
 // const app = express();
@@ -19,8 +19,7 @@ import config from "./config/config";
 
 // const port: number = 3000;
 
-let sequelizeDB: Sequelize =
-  process.env.NODE_ENV == "test" ? config.test : config.development;
+const sequelizeDB: Sequelize = sequelize;
 const PORT = process.env.PORT || 3000;
 
 // app.use(routes);
@@ -63,13 +62,8 @@ const initializeDatabase = async () => {
     console.error("Unable to connect to the database:", error);
   }
 };
-console.log(">>>>>>>>>>>>server1>>>>>>>>>>>>", process.env.NODE_ENV);
 
-const listen = app.listen(PORT, async () => {
+app.listen(PORT, async () => {
   await initializeDatabase();
   console.log(`Server is running on port ${PORT}`);
 });
-
-console.log(">>>>>>>>>>>>server>>>>>>>>>>>>", process.env.NODE_ENV);
-
-export default listen;

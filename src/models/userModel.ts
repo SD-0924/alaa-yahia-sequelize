@@ -1,5 +1,5 @@
 import { DataTypes, Model, Optional } from "sequelize";
-import config from "../config/config";
+import sequelize from "../config/config";
 import Post from "./postModel";
 import Comment from "./commentModel";
 
@@ -58,7 +58,7 @@ User.init(
     },
   },
   {
-    sequelize: config.development,
+    sequelize,
     tableName: "users",
   }
 );
