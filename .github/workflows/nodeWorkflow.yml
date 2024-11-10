@@ -17,8 +17,8 @@ jobs:
         image: mysql:8
         env:
           MYSQL_ROOT_PASSWORD: root
-          MYSQL_DATABASE: test_db
-          MYSQL_PASSWORD: 123456
+          MYSQL_DATABASE: ${{ secrets.TEST_DB_NAME }}
+          MYSQL_PASSWORD: ${{ secrets.TEST_DB_PASSWORD }}
         ports:
           - 3306:3306
         options: >-
@@ -52,8 +52,8 @@ jobs:
           DB_HOST: 127.0.0.1
           DB_PORT: 3306
           DB_USER: root
-          DB_PASSWORD: 123456
-          DB_NAME: test_db
+          DB_PASSWORD: ${{ secrets.TEST_DB_PASSWORD }}
+          DB_NAME: ${{ secrets.TEST_DB_NAME }}
         run: npx sequelize-cli db:migrate
 
       - name: Run tests
@@ -62,6 +62,6 @@ jobs:
           DB_HOST: 127.0.0.1
           DB_PORT: 3306
           DB_USER: root
-          DB_PASSWORD: 123456
-          DB_NAME: test_db
+          DB_PASSWORD: ${{ secrets.TEST_DB_PASSWORD }}
+          DB_NAME: ${{ secrets.TEST_DB_NAME }}
         run: npm test
