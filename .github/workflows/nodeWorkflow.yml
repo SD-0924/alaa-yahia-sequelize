@@ -19,6 +19,7 @@ jobs:
           MYSQL_ROOT_PASSWORD: ${{ secrets.MYSQL_ROOT_PASSWORD }} # Use a password from GitHub Secrets
           MYSQL_DATABASE: ${{ secrets.TEST_DB_NAME }} # Define the test database
           MYSQL_PASSWORD: ${{ secrets.TEST_DB_PASSWORD }}
+          MYSQL_USER: root
         ports:
           - 3306:3306
         options: >-
