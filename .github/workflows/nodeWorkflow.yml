@@ -16,9 +16,9 @@ jobs:
       mysql:
         image: mysql:8
         env:
-          MYSQL_ROOT_PASSWORD: ${{ secrets.DB_PASSWORD }} # Use a password from GitHub Secrets
+          MYSQL_ROOT_PASSWORD: ${{ secrets.MYSQL_ROOT_PASSWORD }} # Use a password from GitHub Secrets
           MYSQL_DATABASE: ${{ secrets.TEST_DB_NAME }} # Define the test database
-          MYSQL_PASSWORD: ${{ secrets.DB_PASSWORD }}
+          MYSQL_PASSWORD: ${{ secrets.TEST_DB_PASSWORD }}
         ports:
           - 3306:3306
         options: >-
@@ -52,7 +52,7 @@ jobs:
           DB_HOST: 127.0.0.1
           DB_PORT: 3306
           DB_USER: root # Set root as the user for test
-          DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
+          DB_PASSWORD: ${{ secrets.TEST_DB_PASSWORD}}
           DB_NAME: ${{ secrets.TEST_DB_NAME }}
         run: npx sequelize-cli db:migrate
 
@@ -62,6 +62,6 @@ jobs:
           DB_HOST: 127.0.0.1
           DB_PORT: 3306
           DB_USER: root # Use root for test user
-          DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
+          DB_PASSWORD: ${{ secrets.TEST_DB_PASSWORD }}
           DB_NAME: ${{ secrets.TEST_DB_NAME }}
         run: npm test
