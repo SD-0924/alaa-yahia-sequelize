@@ -13,6 +13,7 @@ const getUsers = async (req: Request, res: Response): Promise<Response> => {
 
 const createUser = async (req: Request, res: Response): Promise<Response> => {
   try {
+    console.log("here,", req.body);
     const username = req.body.username;
     const email = req.body.email;
     const password = req.body.password;

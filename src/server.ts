@@ -31,7 +31,6 @@ const initializeDatabase = async () => {
 
     await sequelizeDB.sync({ alter: true });
     console.log("All models were synchronized successfully.");
-    await sequelizeDB.close();
   } catch (error) {
     console.error("Unable to connect to the database:", error);
   }
@@ -40,4 +39,11 @@ const initializeDatabase = async () => {
 app.listen(PORT, async () => {
   await initializeDatabase();
   console.log(`Server is running on port ${PORT}`);
+});
+
+process.on("SIGINT", async () => {
+  console.log("Gracefully shutting down...");
+  await sequelizeDB.close();
+  console.log("Database connection closed.");
+  process.exit(0);
 });

@@ -35,7 +35,6 @@ const initializeDatabase = () => __awaiter(void 0, void 0, void 0, function* () 
         console.log("Database connection has been established successfully.");
         yield sequelizeDB.sync({ alter: true });
         console.log("All models were synchronized successfully.");
-        yield sequelizeDB.close();
     }
     catch (error) {
         console.error("Unable to connect to the database:", error);
@@ -44,4 +43,10 @@ const initializeDatabase = () => __awaiter(void 0, void 0, void 0, function* () 
 app_1.default.listen(PORT, () => __awaiter(void 0, void 0, void 0, function* () {
     yield initializeDatabase();
     console.log(`Server is running on port ${PORT}`);
+}));
+process.on("SIGINT", () => __awaiter(void 0, void 0, void 0, function* () {
+    console.log("Gracefully shutting down...");
+    yield sequelizeDB.close();
+    console.log("Database connection closed.");
+    process.exit(0);
 }));

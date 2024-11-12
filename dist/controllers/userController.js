@@ -25,6 +25,7 @@ const getUsers = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
 });
 const createUser = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
+        console.log("here,", req.body);
         const username = req.body.username;
         const email = req.body.email;
         const password = req.body.password;
