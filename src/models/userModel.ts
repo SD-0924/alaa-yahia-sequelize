@@ -1,7 +1,6 @@
 import { DataTypes, Model, Optional } from "sequelize";
+import bcrypt from "bcrypt";
 import sequelize from "../config/config";
-import Post from "./postModel";
-import Comment from "./commentModel";
 
 interface UserAttributes {
   id: number;
@@ -24,6 +23,10 @@ class User
   public password!: string;
   public readonly createdAt!: Date;
   public readonly updatedAt!: Date;
+
+  public async validatePassword(password: string): Promise<boolean> {
+    return bcrypt.compare(password, this.password);
+  }
 }
 
 User.init(
@@ -60,13 +63,19 @@ User.init(
   {
     sequelize,
     tableName: "users",
+    hooks: {
+      beforeCreate: async (user: User) => {
+        const saltRounds = 10;
+        user.password = await bcrypt.hash(user.password, saltRounds);
+      },
+      beforeUpdate: async (user: User) => {
+        if (user.changed("password")) {
+          const saltRounds = 10;
+          user.password = await bcrypt.hash(user.password, saltRounds);
+        }
+      },
+    },
   }
 );
-
-// User.hasMany(Post, { foreignKey: "userId", as: "posts" });
-// Post.belongsTo(User, { foreignKey: "userId", as: "user" });
-
-// User.hasMany(Comment, { foreignKey: "userId", as: "comments" });
-// Comment.belongsTo(User, { foreignKey: "userId", as: "user" });
 
 export default User;

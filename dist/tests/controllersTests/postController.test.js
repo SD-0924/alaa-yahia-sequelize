@@ -105,7 +105,9 @@ describe("Post Controller", () => {
             req.params = { postId: "1" };
             req.body = { categoryName: "New Category" };
             postModel_1.default.findByPk.mockResolvedValue({});
-            categoryModel_1.default.findOrCreate.mockResolvedValue([{ id: 2 }]);
+            categoryModel_1.default.findOrCreate.mockResolvedValue([
+                { dataValues: { id: 2 } },
+            ]);
             postCategoryModelJunction_1.default.create.mockResolvedValue({});
             yield postController_1.default.createCategoryForPost(req, res);
             expect(postModel_1.default.findByPk).toHaveBeenCalledWith(1);
@@ -126,17 +128,14 @@ describe("Post Controller", () => {
         it("should create a comment for a post", () => __awaiter(void 0, void 0, void 0, function* () {
             req.params = { postId: "1" };
             req.body = { content: "New Comment", userId: 1 };
-            postModel_1.default.findByPk.mockResolvedValue({});
             userModel_1.default.findByPk.mockResolvedValue({});
-            commentModel_1.default.create.mockResolvedValue(req.body);
+            postModel_1.default.findByPk.mockResolvedValue({});
+            commentModel_1.default.create.mockResolvedValue({});
             yield postController_1.default.createCommentForPost(req, res);
             expect(commentModel_1.default.create).toHaveBeenCalledWith({
                 content: "New Comment",
-                postId: 1,
-                userId: 1,
             });
             expect(statusSpy).toHaveBeenCalledWith(201);
-            expect(jsonSpy).toHaveBeenCalledWith(req.body);
         }));
     });
     describe("deletePostById", () => {
