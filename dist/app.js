@@ -14,6 +14,6 @@ app.use((err, req, res, next) => {
     res.status(500).send(err.message);
 });
 app.all("*", (req, res) => {
-    res.status(404).send("Pequest not suported");
+    res.status(404).send("Request not supported");
 });
 exports.default = app;
