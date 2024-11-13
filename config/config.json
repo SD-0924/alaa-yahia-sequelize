@@ -3,14 +3,14 @@
     "database": "mydb",
     "username": "root",
     "password": "123456",
-    "host": "127.0.0.1",
+    "host": "0.0.0.0",
     "dialect": "mysql"
   },
   "test": {
     "database": "test_db",
     "username": "root",
     "password": "123456",
-    "host": "127.0.0.1",
+    "host": "0.0.0.0",
     "dialect": "mysql"
   }
 }
