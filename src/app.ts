@@ -13,7 +13,7 @@ app.use((err: Error, req: Request, res: Response, next: any) => {
 });
 
 app.all("*", (req, res) => {
-  res.status(404).send("Pequest not suported");
+  res.status(404).send("Request not supported");
 });
 
 export default app;
