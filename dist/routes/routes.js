@@ -1,53 +1,56 @@
 "use strict";
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", { value: true });
 const express = require("express");
 const router = express.Router();
-const users = require("../controllers/userController");
-const posts = require("../controllers/postController");
-const middleware = require("../middlewares/middlewares");
+const userController_1 = __importDefault(require("../controllers/userController"));
+const postController_1 = __importDefault(require("../controllers/postController"));
 /**User Routes*/
 router.get(
 // Get all users
-"/api/users", users.getUsers);
+"/api/users", userController_1.default.getUsers);
 router.post(
 // Create a new user
-"/api/users", users.createUser);
+"/api/users", userController_1.default.createUser);
 router.get(
 // Get user by ID
-"/api/users/:userId", users.getUserById);
+"/api/users/:userId", userController_1.default.getUserById);
 router.put(
 // Update user by ID
-"/api/users/:userId", users.updateUserById);
+"/api/users/:userId", userController_1.default.updateUserById);
 router.delete(
 // Delete user by ID
-"/api/users/:userId", users.deleteUserById);
+"/api/users/:userId", userController_1.default.deleteUserById);
 /**Posts Routes*/
 router.post(
 // Create a new post
-"/api/posts", posts.createPost);
+"/api/posts", postController_1.default.createPost);
 router.get(
 // Get all posts with associated users, categories, and comments
-"/api/posts", posts.getPosts);
+"/api/posts", postController_1.default.getPosts);
 router.get(
 // Get post by ID with associated users, categories, and comments
-"/api/posts/:postId", posts.getPostById);
+"/api/posts/:postId", postController_1.default.getPostById);
 router.put(
 // Update post by ID
-"/api/posts/:postId", posts.updatePostById);
+"/api/posts/:postId", postController_1.default.updatePostById);
 router.delete(
 // Delete post by ID
-"/api/posts/:postId", posts.deletePostById);
+"/api/posts/:postId", postController_1.default.deletePostById);
 /**Category Routes*/
 router.post(
 // Create a new category for a post
-"/api/posts/:postId/categories", posts.createCategoryForPost);
+"/api/posts/:postId/categories", postController_1.default.createCategoryForPost);
 router.get(
 // Get categories for a specific post
-"/api/posts/:postId/categories", posts.getCategoriesForPost);
+"/api/posts/:postId/categories", postController_1.default.getCategoriesForPost);
 /**Comments Routes*/
 router.post(
 // Create a new comment for a post
-"/api/posts/:postId/comments", posts.createCommentForPost);
+"/api/posts/:postId/comments", postController_1.default.createCommentForPost);
 router.get(
 // Get comments for a specific post
-"/api/posts/:postId/comments", posts.getCommentsForPost);
-module.exports = router;
+"/api/posts/:postId/comments", postController_1.default.getCommentsForPost);
+exports.default = router;

@@ -39,6 +39,10 @@ describe("Comment Model", () => {
     await sequelize.sync();
   });
 
+  afterAll(async () => {
+    await sequelize.close();
+  });
+
   it("should create a new comment", async () => {
     const comment = await MockComment.create({
       content: "This is a comment",

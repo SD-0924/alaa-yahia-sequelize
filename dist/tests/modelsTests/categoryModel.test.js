@@ -38,6 +38,9 @@ describe("Category Model", () => {
     beforeAll(() => __awaiter(void 0, void 0, void 0, function* () {
         yield sequelize.sync();
     }));
+    afterAll(() => __awaiter(void 0, void 0, void 0, function* () {
+        yield sequelize.close();
+    }));
     it("should create a new category", () => __awaiter(void 0, void 0, void 0, function* () {
         const category = yield MockCategory.create({ name: "Technology" });
         expect(category.name).toBe("Technology");

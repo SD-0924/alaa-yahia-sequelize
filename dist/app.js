@@ -4,16 +4,15 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
-const routes = require("./routes/routes");
+const routes_1 = __importDefault(require("./routes/routes"));
 const app = (0, express_1.default)();
 app.use(express_1.default.urlencoded({ extended: true }));
 app.use(express_1.default.json());
-app.set("view engine", "ejs");
-app.use(routes);
-app.use((err, req, res, next) => {
-    res.status(500).send(err.message);
-});
-app.all("*", (req, res) => {
-    res.status(404).send("Pequest not suported");
-});
+app.use(routes_1.default);
+// app.use((err: Error, req: Request, res: Response, next: any) => {
+//   res.status(500).send(err.message);
+// });
+// app.all("*", (req, res) => {
+//   res.status(404).send("Pequest not suported");
+// });
 exports.default = app;

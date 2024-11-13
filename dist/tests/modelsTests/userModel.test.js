@@ -48,6 +48,9 @@ describe("User Model", () => {
     beforeAll(() => __awaiter(void 0, void 0, void 0, function* () {
         yield sequelize.sync(); // Sync database before running tests
     }));
+    afterAll(() => __awaiter(void 0, void 0, void 0, function* () {
+        yield sequelize.close();
+    }));
     it("should create a new user", () => __awaiter(void 0, void 0, void 0, function* () {
         const user = yield MockUser.create({
             username: "John Doe",

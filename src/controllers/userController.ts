@@ -13,7 +13,6 @@ const getUsers = async (req: Request, res: Response): Promise<Response> => {
 
 const createUser = async (req: Request, res: Response): Promise<Response> => {
   try {
-    console.log("here,", req.body);
     const username = req.body.username;
     const email = req.body.email;
     const password = req.body.password;
@@ -43,7 +42,12 @@ const updateUserById = async (
   res: Response
 ): Promise<Response> => {
   try {
-    const { username, email, password } = req.body;
+    let username, email, password;
+    if (req.body) {
+      username = req.body.username;
+      email = req.body.email;
+      password = req.body.password;
+    }
     const user = await User.findByPk(req.params.userId);
     if (!user) {
       return res.status(404).json({ message: "User not found" });
@@ -76,7 +80,7 @@ const deleteUserById = async (
   }
 };
 
-module.exports = {
+export default {
   getUsers,
   createUser,
   getUserById,

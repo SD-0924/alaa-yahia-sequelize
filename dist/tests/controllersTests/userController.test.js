@@ -12,86 +12,79 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const process = require("process");
-const supertest_1 = __importDefault(require("supertest"));
 const app_1 = __importDefault(require("../../app"));
-const users = require("../../controllers/userController");
-const sequelize_1 = require("sequelize");
-jest.mock("../../controllers/userController");
+const supertest_1 = __importDefault(require("supertest"));
+const userController_1 = __importDefault(require("../../controllers/userController"));
+jest.mock("../../controllers/userController", () => ({
+    createUser: jest.fn(),
+    getUsers: jest.fn(),
+    getUserById: jest.fn(),
+    updateUserById: jest.fn(),
+    deleteUserById: jest.fn(),
+}));
 let userId;
 const newUser = {
     username: "Alaa yahia user",
     email: "alaaaaa@mail.com",
     password: "123rty@",
 };
-const sequelize = new sequelize_1.Sequelize({
-    dialect: "sqlite",
-    storage: ":memory:",
-    logging: false,
-});
-const MockUser = sequelize.define("user", {
-    id: {
-        type: sequelize_1.DataTypes.INTEGER,
-        primaryKey: true,
-        autoIncrement: true,
-    },
-    username: {
-        type: sequelize_1.DataTypes.STRING,
-        allowNull: false,
-    },
-    email: {
-        type: sequelize_1.DataTypes.STRING,
-        allowNull: false,
-        unique: true,
-    },
-    password: {
-        type: sequelize_1.DataTypes.STRING,
-        allowNull: false,
-    },
-    createdAt: {
-        type: sequelize_1.DataTypes.DATE,
-        allowNull: false,
-        defaultValue: sequelize_1.DataTypes.NOW,
-    },
-    updatedAt: {
-        type: sequelize_1.DataTypes.DATE,
-        allowNull: false,
-        defaultValue: sequelize_1.DataTypes.NOW,
-    },
-});
+// const MockUser = sequelize.define("user", {
+//   id: {
+//     type: DataTypes.INTEGER,
+//     primaryKey: true,
+//     autoIncrement: true,
+//   },
+//   username: {
+//     type: DataTypes.STRING,
+//     allowNull: false,
+//   },
+//   email: {
+//     type: DataTypes.STRING,
+//     allowNull: false,
+//     unique: true,
+//   },
+//   password: {
+//     type: DataTypes.STRING,
+//     allowNull: false,
+//   },
+//   createdAt: {
+//     type: DataTypes.DATE,
+//     allowNull: false,
+//     defaultValue: DataTypes.NOW,
+//   },
+//   updatedAt: {
+//     type: DataTypes.DATE,
+//     allowNull: false,
+//     defaultValue: DataTypes.NOW,
+//   },
+// }) as typeof User;
 describe("User Controller (Mocked)", () => {
     beforeAll(() => __awaiter(void 0, void 0, void 0, function* () {
-        yield sequelize.sync();
         // Clear mock data if necessary
         jest.clearAllMocks();
     }));
-    afterAll(() => __awaiter(void 0, void 0, void 0, function* () {
-        yield sequelize.close();
-    }));
     it("should mock the creation of a new user", () => __awaiter(void 0, void 0, void 0, function* () {
-        const mockUser = yield MockUser.create(newUser);
-        users.createUser.mockResolvedValue(mockUser);
-        console.log(users.createUser.mockResolvedValue(mockUser)
-            .mockResolvedValue);
+        // const mockUser = await MockUser.create(newUser);
+        userController_1.default.createUser.mockResolvedValue(null); //mockUser
         const response = yield (0, supertest_1.default)(app_1.default).post("/api/users").send(newUser);
         expect(response.statusCode).toBe(201);
         expect(response.body).toHaveProperty("id");
         expect(response.body.username).toBe(newUser.username);
         userId = response.body.id;
     }));
-    it.skip("should mock getting all users", () => __awaiter(void 0, void 0, void 0, function* () {
-        const mockUsers = [newUser];
-        users.getUsers.mockResolvedValue(mockUsers);
-        yield (0, supertest_1.default)(app_1.default)
-            .get("/api/users")
-            .then((response) => {
-            expect(response.status).toBe(200);
-            expect(Array.isArray(response.body)).toBe(true);
-        })
-            .catch((error) => {
-            throw error;
-        });
-    }));
+    // it("should mock getting all users", async () => {
+    //   const mockUsers = [newUser];
+    //   (users.getUsers as jest.Mock).mockResolvedValue(mockUsers);
+    //   await request(app)
+    //     .get("/api/users")
+    //     .then((response) => {
+    //       expect(response.status).toBe(200);
+    //       expect(Array.isArray(response.body)).toBe(true);
+    //     })
+    //     .catch((error) => {
+    //       throw error;
+    //     });
+    // });
     // it("should mock updating the user by id", (done) => {
     //   const updatedUser = { ...newUser, username: "Updated Name" };
     //   (users.updateUser as jest.Mock).mockResolvedValue(updatedUser);

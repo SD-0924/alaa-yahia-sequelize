@@ -39,6 +39,10 @@ describe("Post Model", () => {
     await sequelize.sync();
   });
 
+  afterAll(async () => {
+    await sequelize.close();
+  });
+
   it("should create a new post", async () => {
     const post = await MockPost.create({
       title: "Sample Post",

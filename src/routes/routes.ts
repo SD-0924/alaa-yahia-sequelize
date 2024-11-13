@@ -1,9 +1,7 @@
 const express = require("express");
 const router = express.Router();
-const users = require("../controllers/userController");
-const posts = require("../controllers/postController");
-
-const middleware = require("../middlewares/middlewares");
+import users from "../controllers/userController";
+import posts from "../controllers/postController";
 
 /**User Routes*/
 router.get(
@@ -93,4 +91,4 @@ router.get(
   posts.getCommentsForPost
 );
 
-module.exports = router;
+export default router;

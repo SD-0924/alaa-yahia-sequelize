@@ -45,6 +45,9 @@ describe("Comment Model", () => {
     beforeAll(() => __awaiter(void 0, void 0, void 0, function* () {
         yield sequelize.sync();
     }));
+    afterAll(() => __awaiter(void 0, void 0, void 0, function* () {
+        yield sequelize.close();
+    }));
     it("should create a new comment", () => __awaiter(void 0, void 0, void 0, function* () {
         const comment = yield MockComment.create({
             content: "This is a comment",

@@ -1,12 +1,11 @@
 import express, { Application, Request, Response } from "express";
-const routes = require("./routes/routes");
+import router from "./routes/routes";
 
 const app: Application = express();
 
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
-app.set("view engine", "ejs");
-app.use(routes);
+app.use(router);
 
 app.use((err: Error, req: Request, res: Response, next: any) => {
   res.status(500).send(err.message);

@@ -32,6 +32,10 @@ describe("Category Model", () => {
     await sequelize.sync();
   });
 
+  afterAll(async () => {
+    await sequelize.close();
+  });
+
   it("should create a new category", async () => {
     const category = await MockCategory.create({ name: "Technology" });
     expect(category.name).toBe("Technology");

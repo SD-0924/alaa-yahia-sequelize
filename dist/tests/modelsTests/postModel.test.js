@@ -45,6 +45,9 @@ describe("Post Model", () => {
     beforeAll(() => __awaiter(void 0, void 0, void 0, function* () {
         yield sequelize.sync();
     }));
+    afterAll(() => __awaiter(void 0, void 0, void 0, function* () {
+        yield sequelize.close();
+    }));
     it("should create a new post", () => __awaiter(void 0, void 0, void 0, function* () {
         const post = yield MockPost.create({
             title: "Sample Post",

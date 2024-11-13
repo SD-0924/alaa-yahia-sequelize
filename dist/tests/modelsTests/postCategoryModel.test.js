@@ -28,6 +28,9 @@ describe("PostCategory Model (Junction Table)", () => {
     beforeAll(() => __awaiter(void 0, void 0, void 0, function* () {
         yield sequelize.sync();
     }));
+    afterAll(() => __awaiter(void 0, void 0, void 0, function* () {
+        yield sequelize.close();
+    }));
     it("should create an association between post and category", () => __awaiter(void 0, void 0, void 0, function* () {
         const postCategory = yield MockPostCategory.create({
             postId: 1,

@@ -82,7 +82,7 @@ const deleteUserById = (req, res) => __awaiter(void 0, void 0, void 0, function*
         return res.status(500).json({ message: error.message });
     }
 });
-module.exports = {
+exports.default = {
     getUsers,
     createUser,
     getUserById,

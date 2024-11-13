@@ -12,7 +12,6 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.getCommentsForPost = exports.createCommentForPost = exports.getCategoriesForPost = exports.createCategoryForPost = exports.deletePostById = exports.updatePostById = exports.getPostById = exports.getPosts = exports.createPost = void 0;
 const postModel_1 = __importDefault(require("../models/postModel"));
 const categoryModel_1 = __importDefault(require("../models/categoryModel"));
 const commentModel_1 = __importDefault(require("../models/commentModel"));
@@ -28,7 +27,6 @@ const createPost = (req, res) => __awaiter(void 0, void 0, void 0, function* () 
         res.status(500).json({ message: "Failed to create post", error });
     }
 });
-exports.createPost = createPost;
 const getPosts = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const posts = yield postModel_1.default.findAll({
@@ -50,7 +48,6 @@ const getPosts = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
         res.status(500).json({ message: "Failed to retrieve posts", error });
     }
 });
-exports.getPosts = getPosts;
 const getPostById = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const { postId } = req.params;
@@ -78,7 +75,6 @@ const getPostById = (req, res) => __awaiter(void 0, void 0, void 0, function* ()
         res.status(500).json({ message: "Failed to retrieve post", error });
     }
 });
-exports.getPostById = getPostById;
 const updatePostById = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const { postId } = req.params;
@@ -98,7 +94,6 @@ const updatePostById = (req, res) => __awaiter(void 0, void 0, void 0, function*
         res.status(500).json({ message: "Failed to update post", error });
     }
 });
-exports.updatePostById = updatePostById;
 const deletePostById = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const { postId } = req.params;
@@ -114,7 +109,6 @@ const deletePostById = (req, res) => __awaiter(void 0, void 0, void 0, function*
         res.status(500).json({ message: "Failed to delete post", error });
     }
 });
-exports.deletePostById = deletePostById;
 const createCategoryForPost = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const postId = parseInt(req.params.postId);
@@ -135,7 +129,6 @@ const createCategoryForPost = (req, res) => __awaiter(void 0, void 0, void 0, fu
         res.status(500).json({ message: "Failed to add category to post", error });
     }
 });
-exports.createCategoryForPost = createCategoryForPost;
 const getCategoriesForPost = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const { postId } = req.params;
@@ -157,7 +150,6 @@ const getCategoriesForPost = (req, res) => __awaiter(void 0, void 0, void 0, fun
             .json({ message: "Failed to retrieve categories for post", error });
     }
 });
-exports.getCategoriesForPost = getCategoriesForPost;
 const createCommentForPost = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const { postId } = req.params;
@@ -182,7 +174,6 @@ const createCommentForPost = (req, res) => __awaiter(void 0, void 0, void 0, fun
             .json({ message: "Failed to create comment for post", error });
     }
 });
-exports.createCommentForPost = createCommentForPost;
 const getCommentsForPost = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const { postId } = req.params;
@@ -210,4 +201,14 @@ const getCommentsForPost = (req, res) => __awaiter(void 0, void 0, void 0, funct
             .json({ message: "Failed to retrieve comments for post", error });
     }
 });
-exports.getCommentsForPost = getCommentsForPost;
+exports.default = {
+    createPost,
+    getPosts,
+    getPostById,
+    getCategoriesForPost,
+    getCommentsForPost,
+    createCategoryForPost,
+    createCommentForPost,
+    deletePostById,
+    updatePostById,
+};

@@ -42,6 +42,10 @@ describe("User Model", () => {
     await sequelize.sync(); // Sync database before running tests
   });
 
+  afterAll(async () => {
+    await sequelize.close();
+  });
+
   it("should create a new user", async () => {
     const user = await MockUser.create({
       username: "John Doe",

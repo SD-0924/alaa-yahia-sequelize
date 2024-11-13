@@ -5,7 +5,7 @@ import Comment from "../models/commentModel";
 import User from "../models/userModel";
 import PostCategory from "../models/postCategoryModelJunction";
 
-export const createPost = async (req: Request, res: Response) => {
+const createPost = async (req: Request, res: Response) => {
   try {
     const { title, content, userId } = req.body;
     const newPost = await Post.create({ title, content, userId });
@@ -15,7 +15,7 @@ export const createPost = async (req: Request, res: Response) => {
   }
 };
 
-export const getPosts = async (req: Request, res: Response) => {
+const getPosts = async (req: Request, res: Response) => {
   try {
     const posts = await Post.findAll({
       include: [
@@ -36,7 +36,7 @@ export const getPosts = async (req: Request, res: Response) => {
   }
 };
 
-export const getPostById = async (req: Request, res: Response) => {
+const getPostById = async (req: Request, res: Response) => {
   try {
     const { postId } = req.params;
     const post = await Post.findByPk(postId, {
@@ -62,7 +62,7 @@ export const getPostById = async (req: Request, res: Response) => {
   }
 };
 
-export const updatePostById = async (req: Request, res: Response) => {
+const updatePostById = async (req: Request, res: Response) => {
   try {
     const { postId } = req.params;
     const { title, content } = req.body;
@@ -80,7 +80,7 @@ export const updatePostById = async (req: Request, res: Response) => {
   }
 };
 
-export const deletePostById = async (req: Request, res: Response) => {
+const deletePostById = async (req: Request, res: Response) => {
   try {
     const { postId } = req.params;
     const deleted = await Post.destroy({ where: { id: postId } });
@@ -94,7 +94,7 @@ export const deletePostById = async (req: Request, res: Response) => {
   }
 };
 
-export const createCategoryForPost = async (req: Request, res: Response) => {
+const createCategoryForPost = async (req: Request, res: Response) => {
   try {
     const postId = parseInt(req.params.postId);
     const { categoryName } = req.body;
@@ -115,7 +115,7 @@ export const createCategoryForPost = async (req: Request, res: Response) => {
   }
 };
 
-export const getCategoriesForPost = async (req: Request, res: Response) => {
+const getCategoriesForPost = async (req: Request, res: Response) => {
   try {
     const { postId } = req.params;
     const post = await Post.findByPk(postId, {
@@ -136,7 +136,7 @@ export const getCategoriesForPost = async (req: Request, res: Response) => {
   }
 };
 
-export const createCommentForPost = async (req: Request, res: Response) => {
+const createCommentForPost = async (req: Request, res: Response) => {
   try {
     const { postId } = req.params;
     const { content, userId } = req.body;
@@ -160,7 +160,7 @@ export const createCommentForPost = async (req: Request, res: Response) => {
   }
 };
 
-export const getCommentsForPost = async (req: Request, res: Response) => {
+const getCommentsForPost = async (req: Request, res: Response) => {
   try {
     const { postId } = req.params;
     const post = await Post.findByPk(postId, {
@@ -185,4 +185,16 @@ export const getCommentsForPost = async (req: Request, res: Response) => {
       .status(500)
       .json({ message: "Failed to retrieve comments for post", error });
   }
+};
+
+export default {
+  createPost,
+  getPosts,
+  getPostById,
+  getCategoriesForPost,
+  getCommentsForPost,
+  createCategoryForPost,
+  createCommentForPost,
+  deletePostById,
+  updatePostById,
 };

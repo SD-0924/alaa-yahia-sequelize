@@ -22,6 +22,10 @@ describe("PostCategory Model (Junction Table)", () => {
     await sequelize.sync();
   });
 
+  afterAll(async () => {
+    await sequelize.close();
+  });
+
   it("should create an association between post and category", async () => {
     const postCategory = await MockPostCategory.create({
       postId: 1,
