@@ -5,7 +5,6 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const sequelize_1 = require("sequelize");
 const config_1 = __importDefault(require("../config/config"));
-const postModel_1 = __importDefault(require("./postModel"));
 class Comment extends sequelize_1.Model {
 }
 Comment.init({
@@ -30,6 +29,6 @@ Comment.init({
     sequelize: config_1.default,
     tableName: "comments",
 });
-Comment.belongsTo(postModel_1.default, { foreignKey: "postId", as: "post" });
-postModel_1.default.hasMany(Comment, { foreignKey: "postId", as: "comments" });
+// Comment.belongsTo(Post, { foreignKey: "postId", as: "post" });
+// Post.hasMany(Comment, { foreignKey: "postId", as: "comments" });
 exports.default = Comment;

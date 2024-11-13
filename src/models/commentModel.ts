@@ -51,7 +51,7 @@ Comment.init(
   }
 );
 
-Comment.belongsTo(Post, { foreignKey: "postId", as: "post" });
-Post.hasMany(Comment, { foreignKey: "postId", as: "comments" });
+// Comment.belongsTo(Post, { foreignKey: "postId", as: "post" });
+// Post.hasMany(Comment, { foreignKey: "postId", as: "comments" });
 
 export default Comment;

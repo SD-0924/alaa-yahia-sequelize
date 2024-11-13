@@ -25,7 +25,6 @@ const getUsers = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
 });
 const createUser = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        console.log("here,", req.body);
         const username = req.body.username;
         const email = req.body.email;
         const password = req.body.password;
@@ -52,7 +51,12 @@ const getUserById = (req, res) => __awaiter(void 0, void 0, void 0, function* ()
 });
 const updateUserById = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const { username, email, password } = req.body;
+        let username, email, password;
+        if (req.body) {
+            username = req.body.username;
+            email = req.body.email;
+            password = req.body.password;
+        }
         const user = yield userModel_1.default.findByPk(req.params.userId);
         if (!user) {
             return res.status(404).json({ message: "User not found" });

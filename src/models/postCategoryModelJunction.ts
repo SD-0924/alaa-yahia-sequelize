@@ -45,15 +45,15 @@ PostCategory.init(
   }
 );
 
-Post.belongsToMany(Category, {
-  through: PostCategory,
-  foreignKey: "postId",
-  as: "categories",
-});
-Category.belongsToMany(Post, {
-  through: PostCategory,
-  foreignKey: "categoryId",
-  as: "posts",
-});
+// Post.belongsToMany(Category, {
+//   through: PostCategory,
+//   foreignKey: "postId",
+//   as: "categories",
+// });
+// Category.belongsToMany(Post, {
+//   through: PostCategory,
+//   foreignKey: "categoryId",
+//   as: "posts",
+// });
 
 export default PostCategory;

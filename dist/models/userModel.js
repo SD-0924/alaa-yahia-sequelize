@@ -5,8 +5,6 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const sequelize_1 = require("sequelize");
 const config_1 = __importDefault(require("../config/config"));
-const postModel_1 = __importDefault(require("./postModel"));
-const commentModel_1 = __importDefault(require("./commentModel"));
 class User extends sequelize_1.Model {
 }
 User.init({
@@ -42,8 +40,8 @@ User.init({
     sequelize: config_1.default,
     tableName: "users",
 });
-User.hasMany(postModel_1.default, { foreignKey: "userId", as: "posts" });
-postModel_1.default.belongsTo(User, { foreignKey: "userId", as: "user" });
-User.hasMany(commentModel_1.default, { foreignKey: "userId", as: "comments" });
-commentModel_1.default.belongsTo(User, { foreignKey: "userId", as: "user" });
+// User.hasMany(Post, { foreignKey: "userId", as: "posts" });
+// Post.belongsTo(User, { foreignKey: "userId", as: "user" });
+// User.hasMany(Comment, { foreignKey: "userId", as: "comments" });
+// Comment.belongsTo(User, { foreignKey: "userId", as: "user" });
 exports.default = User;

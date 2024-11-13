@@ -30,14 +30,14 @@ PostCategory.init({
     sequelize: config_1.default,
     tableName: "post_categories",
 });
-postModel_1.default.belongsToMany(categoryModel_1.default, {
-    through: PostCategory,
-    foreignKey: "postId",
-    as: "categories",
-});
-categoryModel_1.default.belongsToMany(postModel_1.default, {
-    through: PostCategory,
-    foreignKey: "categoryId",
-    as: "posts",
-});
+// Post.belongsToMany(Category, {
+//   through: PostCategory,
+//   foreignKey: "postId",
+//   as: "categories",
+// });
+// Category.belongsToMany(Post, {
+//   through: PostCategory,
+//   foreignKey: "categoryId",
+//   as: "posts",
+// });
 exports.default = PostCategory;
