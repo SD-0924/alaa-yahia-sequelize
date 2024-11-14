@@ -1,3 +1,5 @@
+// require("dotenv").config();
+
 import express, { Application, Request, Response } from "express";
 import router from "./routes/routes";
 import "./models/associations";

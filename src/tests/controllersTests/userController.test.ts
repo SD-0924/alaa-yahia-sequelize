@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
-import userController from "../../controllers/userController";
 import User from "../../models/userModel";
+import userController from "../../controllers/userController";
 
 // Mock the User model
 jest.mock("../../models/userModel");

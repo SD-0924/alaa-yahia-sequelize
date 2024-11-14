@@ -1,5 +1,5 @@
 // sequelize-config.js
-require("dotenv").config();
+// require("dotenv").config();
 const { Sequelize } = require("sequelize");
 
 // Get the current environment (development, test, production)
@@ -40,31 +40,21 @@ const sequelize = new Sequelize(
   dbConfig.dbPassword,
   {
     host: dbConfig.dbHost,
-    port: process.env.DB_PORT || 3306,
     dialect: "mysql",
     logging: environment === "production" ? false : console.log, // Disable logging in production
-    dialectOptions:
-      environment === "production"
-        ? {
-            ssl: {
-              require: true,
-              rejectUnauthorized: false, // Use this if you need SSL in production
-            },
-          }
-        : {},
   }
 );
 
 // Test the database connection
-async function testConnection() {
-  try {
-    await sequelize.authenticate();
-    console.log("Database connection has been established successfully.");
-  } catch (error) {
-    console.error("Unable to connect to the database:", error);
-  }
-}
+// async function testConnection() {
+//   try {
+//     await sequelize.authenticate();
+//     console.log("Database connection has been established successfully.");
+//   } catch (error) {
+//     console.error("Unable to connect to the database:", error);
+//   }
+// }
 
-testConnection();
+// testConnection();
 
 export default sequelize;

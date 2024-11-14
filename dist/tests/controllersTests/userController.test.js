@@ -12,8 +12,8 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const userController_1 = __importDefault(require("../../controllers/userController"));
 const userModel_1 = __importDefault(require("../../models/userModel"));
+const userController_1 = __importDefault(require("../../controllers/userController"));
 // Mock the User model
 jest.mock("../../models/userModel");
 describe("User Controller", () => {
