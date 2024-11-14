@@ -1,14 +1,9 @@
-// sequelize-config.js
-// require("dotenv").config();
 const { Sequelize } = require("sequelize");
 
-// Get the current environment (development, test, production)
-const environment = process.env.NODE_ENV || "development"; // Default to 'development' if NODE_ENV is not set
-
-// Configuration based on the environment
+const environment = process.env.NODE_ENV || "development";
 let dbConfig;
 
-switch (environment) {
+switch (environment.toString().trim()) {
   case "production":
     dbConfig = {
       dbName: process.env.PROD_DB_NAME,
@@ -44,17 +39,5 @@ const sequelize = new Sequelize(
     logging: environment === "production" ? false : console.log, // Disable logging in production
   }
 );
-
-// Test the database connection
-// async function testConnection() {
-//   try {
-//     await sequelize.authenticate();
-//     console.log("Database connection has been established successfully.");
-//   } catch (error) {
-//     console.error("Unable to connect to the database:", error);
-//   }
-// }
-
-// testConnection();
 
 export default sequelize;
