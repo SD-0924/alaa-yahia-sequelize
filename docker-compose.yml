@@ -15,7 +15,7 @@ services:
       - db
 
   db:
-    image: mysql:8
+    image: mysql:latest
     environment:
       MYSQL_ROOT_PASSWORD: 123456
       MYSQL_DATABASE: prod_db

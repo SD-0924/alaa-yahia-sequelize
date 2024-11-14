@@ -1,5 +1,5 @@
 # Use an official Node.js runtime as the base image
-FROM mysql:latest
+FROM node:18
 
 # Set the working directory inside the container
 WORKDIR /
