@@ -36,6 +36,7 @@ const sequelize = new Sequelize(
   {
     host: dbConfig.dbHost,
     dialect: "mysql",
+    port: process.env.host,
     logging: environment === "production" ? false : console.log, // Disable logging in production
   }
 );
