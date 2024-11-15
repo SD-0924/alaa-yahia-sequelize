@@ -7,50 +7,65 @@ const express = require("express");
 const router = express.Router();
 const userController_1 = __importDefault(require("../controllers/userController"));
 const postController_1 = __importDefault(require("../controllers/postController"));
+const validatorMiddlewares_1 = require("../middlewares/validatorMiddlewares");
 /**User Routes*/
 router.get(
 // Get all users
-"/api/users", userController_1.default.getUsers);
+"/api/users", //body: empty
+userController_1.default.getUsers);
 router.post(
 // Create a new user
-"/api/users", userController_1.default.createUser);
+"/api/users", //body: username, email, password.
+validatorMiddlewares_1.userValidationRules.createUser, userController_1.default.createUser);
 router.get(
 // Get user by ID
-"/api/users/:userId", userController_1.default.getUserById);
+"/api/users/:userId", //body: empty
+userController_1.default.getUserById);
 router.put(
 // Update user by ID
-"/api/users/:userId", userController_1.default.updateUserById);
+"/api/users/:userId", //body: username, email, password.
+validatorMiddlewares_1.userValidationRules.updateUserById, userController_1.default.updateUserById);
 router.delete(
 // Delete user by ID
-"/api/users/:userId", userController_1.default.deleteUserById);
+"/api/users/:userId", //body: empty
+userController_1.default.deleteUserById);
 /**Posts Routes*/
 router.post(
 // Create a new post
-"/api/posts", postController_1.default.createPost);
+"/api/posts", //body: title, content, userId
+validatorMiddlewares_1.postValidationRules.createPost, postController_1.default.createPost);
 router.get(
 // Get all posts with associated users, categories, and comments
-"/api/posts", postController_1.default.getPosts);
+"/api/posts", //body: empty
+postController_1.default.getPosts);
 router.get(
 // Get post by ID with associated users, categories, and comments
-"/api/posts/:postId", postController_1.default.getPostById);
+"/api/posts/:postId", postController_1.default.getPostById //body: empty
+);
 router.put(
 // Update post by ID
-"/api/posts/:postId", postController_1.default.updatePostById);
+"/api/posts/:postId", //body: title, content
+validatorMiddlewares_1.postValidationRules.updatePostById, postController_1.default.updatePostById);
 router.delete(
 // Delete post by ID
-"/api/posts/:postId", postController_1.default.deletePostById);
+"/api/posts/:postId", //body: empty
+postController_1.default.deletePostById);
 /**Category Routes*/
 router.post(
 // Create a new category for a post
-"/api/posts/:postId/categories", postController_1.default.createCategoryForPost);
+"/api/posts/:postId/categories", //body: categoryName
+validatorMiddlewares_1.categoryValidationRules.createCategoryForPost, postController_1.default.createCategoryForPost);
 router.get(
 // Get categories for a specific post
-"/api/posts/:postId/categories", postController_1.default.getCategoriesForPost);
+"/api/posts/:postId/categories", //body: empty
+postController_1.default.getCategoriesForPost);
 /**Comments Routes*/
 router.post(
 // Create a new comment for a post
-"/api/posts/:postId/comments", postController_1.default.createCommentForPost);
+"/api/posts/:postId/comments", //body: content, userId
+validatorMiddlewares_1.commentValidationRules.createCommentForPost, postController_1.default.createCommentForPost);
 router.get(
 // Get comments for a specific post
-"/api/posts/:postId/comments", postController_1.default.getCommentsForPost);
+"/api/posts/:postId/comments", //body: empty
+postController_1.default.getCommentsForPost);
 exports.default = router;
