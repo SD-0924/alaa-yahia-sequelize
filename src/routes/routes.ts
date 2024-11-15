@@ -19,27 +19,25 @@ router.post(
 
 /**User Routes*/
 router.get(
-  // Get all users
   "/api/users", //body: empty
+  authenticateJWT,
   users.getUsers
 );
 
 router.post(
-  // Create a new user
   "/api/users", //body: username, email, password.
+  // authenticateJWT, BIG NO! if we yet dont have user we cant authenticate them.
   userValidationRules.createUser,
-  users.createUser
+  users.createUser //TODO: reqister?
 );
 
 router.get(
-  // Get user by ID
   "/api/users/:userId", //body: empty
   authenticateJWT,
   users.getUserById
 );
 
 router.put(
-  // Update user by ID
   "/api/users/:userId", //body: username, email, password.
   authenticateJWT,
   userValidationRules.updateUserById,
@@ -47,14 +45,14 @@ router.put(
 );
 
 router.delete(
-  // Delete user by ID
+  /// TODO: check if this works + make token expire.
   "/api/users/:userId", //body: empty
+  authenticateJWT,
   users.deleteUserById
 );
 
 /**Posts Routes*/
 router.post(
-  // Create a new post
   "/api/posts", //body: title, content, userId
   authenticateJWT,
   postValidationRules.createPost,
@@ -74,7 +72,6 @@ router.get(
 );
 
 router.put(
-  // Update post by ID
   "/api/posts/:postId", //body: title, content
   authenticateJWT,
   postValidationRules.updatePostById,
@@ -82,14 +79,13 @@ router.put(
 );
 
 router.delete(
-  // Delete post by ID
   "/api/posts/:postId", //body: empty
+  authenticateJWT,
   posts.deletePostById
 );
 
 /**Category Routes*/
 router.post(
-  // Create a new category for a post
   "/api/posts/:postId/categories", //body: categoryName
   authenticateJWT,
   categoryValidationRules.createCategoryForPost,
@@ -97,14 +93,12 @@ router.post(
 );
 
 router.get(
-  // Get categories for a specific post
   "/api/posts/:postId/categories", //body: empty
   posts.getCategoriesForPost
 );
 
 /**Comments Routes*/
 router.post(
-  // Create a new comment for a post
   "/api/posts/:postId/comments", //body: content, userId
   authenticateJWT,
   commentValidationRules.createCommentForPost,
@@ -112,7 +106,6 @@ router.post(
 );
 
 router.get(
-  // Get comments for a specific post
   "/api/posts/:postId/comments", //body: empty
   posts.getCommentsForPost
 );
