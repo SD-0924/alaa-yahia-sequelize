@@ -47,11 +47,17 @@ describe("User Controller", () => {
     }));
     // Test for createUser
     it("should create a new user", () => __awaiter(void 0, void 0, void 0, function* () {
-        const newUser = { id: 1, username: "newUser", email: "new@example.com" };
+        const newUser = {
+            id: 1,
+            username: "newUser",
+            email: "new@example.com",
+            tokenIssuedAt: new Date(),
+        };
         req.body = {
             username: "newUser",
             email: "new@example.com",
             password: "pass123",
+            tokenIssuedAt: newUser.tokenIssuedAt,
         };
         userModel_1.default.create.mockResolvedValue(newUser);
         yield userController_1.default.createUser(req, res);

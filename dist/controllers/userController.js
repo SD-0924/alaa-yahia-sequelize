@@ -19,16 +19,14 @@ const jwtUtils_1 = require("../Utils/jwtUtils");
 const registerUser = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { username, email, password } = req.body;
     try {
-        // Check if the email is already registered
         const existingUser = yield userModel_1.default.findOne({ where: { email } });
         if (existingUser) {
             return res.status(400).json({ message: "Email is already registered." });
         }
-        const hashedPassword = bcrypt_1.default.hashSync(password, 10);
         const newUser = yield userModel_1.default.create({
             username,
             email,
-            password: hashedPassword,
+            password,
             tokenIssuedAt: new Date(),
         });
         const token = (0, jwtUtils_1.generateToken)({
@@ -42,6 +40,7 @@ const registerUser = (req, res) => __awaiter(void 0, void 0, void 0, function* (
                 id: newUser.id,
                 username: newUser.username,
                 email: newUser.email,
+                tokenIssuedAt: newUser.tokenIssuedAt,
             },
             token,
         });
@@ -52,6 +51,28 @@ const registerUser = (req, res) => __awaiter(void 0, void 0, void 0, function* (
     }
 });
 exports.registerUser = registerUser;
+const createUser = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const username = req.body.username;
+        const email = req.body.email;
+        const password = req.body.password;
+        const existingUser = yield userModel_1.default.findOne({ where: { email } });
+        if (existingUser) {
+            return res.status(400).json({ message: "Email is already registered." });
+        }
+        const user = yield userModel_1.default.create({
+            username,
+            email,
+            password,
+            tokenIssuedAt: new Date(),
+        });
+        return res.status(201).json(user);
+    }
+    catch (error) {
+        console.error("Error creating user:", error);
+        return res.status(500).json({ message: error.message });
+    }
+});
 const loginUser = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { email, password } = req.body;
     const user = yield userModel_1.default.findOne({ where: { email } });
@@ -60,7 +81,7 @@ const loginUser = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     }
     const isPasswordValid = bcrypt_1.default.compareSync(password, user.password);
     if (!isPasswordValid) {
-        return res.status(401).json({ message: "Invalid password." });
+        return res.status(401).json({ message: "Invalid credintials" });
     }
     user.tokenIssuedAt = new Date();
     yield user.save();
@@ -79,24 +100,6 @@ const getUsers = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     }
     catch (error) {
         console.error("Error fetching users:", error);
-        return res.status(500).json({ message: error.message });
-    }
-});
-const createUser = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    try {
-        const username = req.body.username;
-        const email = req.body.email;
-        const password = req.body.password;
-        const user = yield userModel_1.default.create({
-            username,
-            email,
-            password,
-            tokenIssuedAt: new Date(),
-        });
-        return res.status(201).json(user);
-    }
-    catch (error) {
-        console.error("Error creating user:", error);
         return res.status(500).json({ message: error.message });
     }
 });

@@ -78,9 +78,9 @@ const getPostById = (req, res) => __awaiter(void 0, void 0, void 0, function* ()
 const updatePostById = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const { postId } = req.params;
-        const { title, content } = req.body;
+        const { title, content, userId } = req.body;
         const post = yield postModel_1.default.findByPk(postId);
-        if (post) {
+        if (post && post.userId === userId) {
             post.title = title;
             post.content = content;
             yield post.save();
@@ -97,7 +97,8 @@ const updatePostById = (req, res) => __awaiter(void 0, void 0, void 0, function*
 const deletePostById = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const { postId } = req.params;
-        const deleted = yield postModel_1.default.destroy({ where: { id: postId } });
+        const { userId } = req.body;
+        const deleted = yield postModel_1.default.destroy({ where: { id: postId, userId } });
         if (deleted) {
             res.status(200).json({ message: "Post deleted successfully" });
         }

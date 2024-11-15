@@ -92,7 +92,8 @@ router.delete(
 /**Category Routes*/
 router.post(
   "/api/posts/:postId/categories", //body: categoryName
-  authenticateJWT,
+  authenticateJWT, //I chose to have any user can add category.
+  //(we can make only user that wrote the post but it not that matters)
   categoryValidationRules.createCategoryForPost,
   posts.createCategoryForPost
 );

@@ -25,9 +25,7 @@ router.get("/api/users/:userId", //body: empty
 authenticateJWT_1.authenticateJWT, userController_1.default.getUserById);
 router.put("/api/users/:userId", //body: username, email, password.
 authenticateJWT_1.authenticateJWT, validatorMiddlewares_1.userValidationRules.updateUserById, userController_1.default.updateUserById);
-router.delete(
-/// TODO: check if this works + make token expire.
-"/api/users/:userId", //body: empty
+router.delete("/api/users/:userId", //body: empty
 authenticateJWT_1.authenticateJWT, userController_1.default.deleteUserById);
 /**Posts Routes*/
 router.post("/api/posts", //body: title, content, userId
@@ -40,13 +38,15 @@ router.get(
 // Get post by ID with associated users, categories, and comments
 "/api/posts/:postId", postController_1.default.getPostById //body: empty
 );
-router.put("/api/posts/:postId", //body: title, content
+router.put("/api/posts/:postId", //body: title, content, userId
 authenticateJWT_1.authenticateJWT, validatorMiddlewares_1.postValidationRules.updatePostById, postController_1.default.updatePostById);
-router.delete("/api/posts/:postId", //body: empty
+router.delete("/api/posts/:postId", //body: userId
 authenticateJWT_1.authenticateJWT, postController_1.default.deletePostById);
 /**Category Routes*/
 router.post("/api/posts/:postId/categories", //body: categoryName
-authenticateJWT_1.authenticateJWT, validatorMiddlewares_1.categoryValidationRules.createCategoryForPost, postController_1.default.createCategoryForPost);
+authenticateJWT_1.authenticateJWT, //I chose to have any user can add category.
+//(we can make only user that wrote the post but it not that matters)
+validatorMiddlewares_1.categoryValidationRules.createCategoryForPost, postController_1.default.createCategoryForPost);
 router.get("/api/posts/:postId/categories", //body: empty
 postController_1.default.getCategoriesForPost);
 /**Comments Routes*/

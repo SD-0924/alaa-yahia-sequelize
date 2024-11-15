@@ -35,5 +35,5 @@ const sequelize = new Sequelize(dbConfig.dbName, dbConfig.dbUser, dbConfig.dbPas
     // logging: environment === "production" ? false : console.log, // Disable logging in production
     dialect: "mysql",
 });
-console.log(environment, sequelize, ">>>>>>>>>>>>>>>>>>>>>>>>");
+// console.log(environment, sequelize, ">>>>>>>>>>>>>>>>>>>>>>>>");
 exports.default = sequelize;

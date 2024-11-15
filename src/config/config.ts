@@ -42,5 +42,5 @@ const sequelize = new Sequelize(
   }
 );
 
-console.log(environment, sequelize, ">>>>>>>>>>>>>>>>>>>>>>>>");
+// console.log(environment, sequelize, ">>>>>>>>>>>>>>>>>>>>>>>>");
 export default sequelize;

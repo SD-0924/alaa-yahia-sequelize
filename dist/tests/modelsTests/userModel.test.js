@@ -33,6 +33,10 @@ const MockUser = sequelize.define("user", {
         type: sequelize_1.DataTypes.STRING,
         allowNull: false,
     },
+    tokenIssuedAt: {
+        type: sequelize_1.DataTypes.DATE,
+        allowNull: false,
+    },
     createdAt: {
         type: sequelize_1.DataTypes.DATE,
         allowNull: false,
@@ -56,6 +60,7 @@ describe("User Model", () => {
             username: "John Doe",
             email: "john@example.com",
             password: "securepassword",
+            tokenIssuedAt: new Date(),
         });
         expect(user.username).toBe("John Doe");
         expect(user.email).toBe("john@example.com");

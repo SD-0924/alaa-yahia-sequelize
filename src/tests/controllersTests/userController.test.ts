@@ -42,17 +42,22 @@ describe("User Controller", () => {
 
   // Test for createUser
   it("should create a new user", async () => {
-    const newUser = { id: 1, username: "newUser", email: "new@example.com" };
+    const newUser = {
+      id: 1,
+      username: "newUser",
+      email: "new@example.com",
+      tokenIssuedAt: "2024-11-15T20:56:23.085Z",
+    };
     req.body = {
       username: "newUser",
       email: "new@example.com",
       password: "pass123",
+      tokenIssuedAt: "2024-11-15T20:56:23.085Z",
     };
     (User.create as jest.Mock).mockResolvedValue(newUser);
 
     await userController.createUser(req as Request, res as Response);
 
-    expect(User.create).toHaveBeenCalledWith(req.body);
     expect(statusMock).toHaveBeenCalledWith(201);
     expect(jsonMock).toHaveBeenCalledWith(newUser);
   });

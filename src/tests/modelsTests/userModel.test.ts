@@ -1,4 +1,4 @@
-import { Sequelize, DataTypes } from "sequelize";
+import { Sequelize, DataTypes, DATE } from "sequelize";
 import User from "../../models/userModel";
 
 const sequelize = new Sequelize({
@@ -23,6 +23,10 @@ const MockUser = sequelize.define("user", {
   },
   password: {
     type: DataTypes.STRING,
+    allowNull: false,
+  },
+  tokenIssuedAt: {
+    type: DataTypes.DATE,
     allowNull: false,
   },
   createdAt: {
@@ -51,6 +55,7 @@ describe("User Model", () => {
       username: "John Doe",
       email: "john@example.com",
       password: "securepassword",
+      tokenIssuedAt: new Date(),
     });
     expect(user.username).toBe("John Doe");
     expect(user.email).toBe("john@example.com");

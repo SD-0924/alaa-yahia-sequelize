@@ -5,6 +5,7 @@ import Post from "../../models/postModel";
 import Category from "../../models/categoryModel";
 import Comment from "../../models/commentModel";
 import PostCategory from "../../models/postCategoryModelJunction";
+import { body } from "express-validator";
 
 jest.mock("../../models/userModel");
 jest.mock("../../models/postModel");
@@ -168,11 +169,14 @@ describe("Post Controller", () => {
   describe("deletePostById", () => {
     it("should delete a post by ID", async () => {
       req.params = { postId: "1" };
+      req.body = { userId: "1" };
       (Post.destroy as jest.Mock).mockResolvedValue(1);
 
       await postController.deletePostById(req as Request, res as Response);
 
-      expect(Post.destroy).toHaveBeenCalledWith({ where: { id: "1" } });
+      expect(Post.destroy).toHaveBeenCalledWith({
+        where: { id: "1", userId: "1" },
+      }); //
       expect(statusSpy).toHaveBeenCalledWith(200);
       expect(jsonSpy).toHaveBeenCalledWith({
         message: "Post deleted successfully",
@@ -181,6 +185,7 @@ describe("Post Controller", () => {
 
     it("should return 404 if post not found", async () => {
       req.params = { postId: "1" };
+      req.body = { userId: "1" };
       (Post.destroy as jest.Mock).mockResolvedValue(0);
 
       await postController.deletePostById(req as Request, res as Response);
