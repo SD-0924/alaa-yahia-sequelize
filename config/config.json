@@ -17,7 +17,7 @@
     "database": "prod_db",
     "username": "root",
     "password": "123456",
-    "host": "0.0.0.0",
+    "host": "db",
     "dialect": "mysql"
   }
 }
