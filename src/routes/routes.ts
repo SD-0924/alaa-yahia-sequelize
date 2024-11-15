@@ -84,7 +84,7 @@ router.put(
 );
 
 router.delete(
-  "/api/posts/:postId", //body: empty
+  "/api/posts/:postId", //body: userId
   authenticateJWT,
   posts.deletePostById
 );

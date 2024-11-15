@@ -83,7 +83,8 @@ const updatePostById = async (req: Request, res: Response) => {
 const deletePostById = async (req: Request, res: Response) => {
   try {
     const { postId } = req.params;
-    const deleted = await Post.destroy({ where: { id: postId } });
+    const { userId } = req.body;
+    const deleted = await Post.destroy({ where: { id: postId, userId } });
     if (deleted) {
       res.status(200).json({ message: "Post deleted successfully" });
     } else {
