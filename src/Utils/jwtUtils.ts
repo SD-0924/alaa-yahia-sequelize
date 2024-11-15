@@ -9,10 +9,15 @@ export const generateToken = (payload: object): string => {
 };
 
 // Verify JWT
-export const verifyToken = (token: string): { userId: string } | null => {
+export const verifyToken = (
+  token: string
+): { userId: string; tokenIssuedAt: Date } | null => {
   try {
     const decoded = jwt.verify(token, JWT_SECRET) as jwt.JwtPayload;
-    return { userId: decoded.userId as string };
+    return {
+      userId: decoded.userId as string,
+      tokenIssuedAt: decoded.tokenIssuedAt as Date,
+    };
   } catch (error) {
     console.error("Error verifying token:", error);
     return null;

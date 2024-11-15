@@ -29,8 +29,13 @@ const registerUser = (req, res) => __awaiter(void 0, void 0, void 0, function* (
             username,
             email,
             password: hashedPassword,
+            tokenIssuedAt: new Date(),
         });
-        const token = (0, jwtUtils_1.generateToken)({ userId: newUser.id, email: newUser.email });
+        const token = (0, jwtUtils_1.generateToken)({
+            userId: newUser.id,
+            email: newUser.email,
+            tokenIssuedAt: newUser.tokenIssuedAt,
+        });
         res.status(201).json({
             message: "User registered successfully.",
             user: {
@@ -55,9 +60,15 @@ const loginUser = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     }
     const isPasswordValid = bcrypt_1.default.compareSync(password, user.password);
     if (!isPasswordValid) {
-        return res.status(401).json({ message: "Invalid credentials." });
+        return res.status(401).json({ message: "Invalid password." });
     }
-    const token = (0, jwtUtils_1.generateToken)({ userId: user.id, email: user.email });
+    user.tokenIssuedAt = new Date();
+    yield user.save();
+    const token = (0, jwtUtils_1.generateToken)({
+        userId: user.id,
+        email: user.email,
+        tokenIssuedAt: user.tokenIssuedAt,
+    });
     res.status(200).json({ message: "Login successful.", token });
 });
 exports.loginUser = loginUser;
@@ -76,7 +87,12 @@ const createUser = (req, res) => __awaiter(void 0, void 0, void 0, function* () 
         const username = req.body.username;
         const email = req.body.email;
         const password = req.body.password;
-        const user = yield userModel_1.default.create({ username, email, password });
+        const user = yield userModel_1.default.create({
+            username,
+            email,
+            password,
+            tokenIssuedAt: new Date(),
+        });
         return res.status(201).json(user);
     }
     catch (error) {

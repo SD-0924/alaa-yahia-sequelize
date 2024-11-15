@@ -11,7 +11,11 @@ import {
 import { authenticateJWT } from "../middlewares/authenticateJWT";
 
 /**Auth Routes*/
-router.post("/api/auth/login", userValidationRules.loginUser, users.loginUser);
+router.post(
+  "/api/auth/login", //body: email, password
+  userValidationRules.loginUser,
+  users.loginUser
+);
 
 router.post(
   "/api/auth/register",
@@ -47,7 +51,6 @@ router.put(
 );
 
 router.delete(
-  /// TODO: check if this works + make token expire.
   "/api/users/:userId", //body: empty
   authenticateJWT,
   users.deleteUserById

@@ -1,7 +1,8 @@
 import { Request, Response, NextFunction } from "express";
 import { verifyToken } from "../Utils/jwtUtils";
+import User from "../models/userModel";
 
-export const authenticateJWT = (
+export const authenticateJWT = async (
   req: Request,
   res: Response,
   next: NextFunction
@@ -19,6 +20,15 @@ export const authenticateJWT = (
 
   if (!payload) {
     return res.status(403).json({ message: "Invalid or expired token." });
+  }
+
+  const user = await User.findByPk(payload.userId);
+  if (
+    !user ||
+    !user.tokenIssuedAt ||
+    new Date(payload.tokenIssuedAt) < user.tokenIssuedAt
+  ) {
+    return res.status(403).json({ message: "Token is invalid or expired." });
   }
 
   // Attach the payload to the request object

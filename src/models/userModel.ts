@@ -7,6 +7,7 @@ interface UserAttributes {
   username: string;
   email: string;
   password: string;
+  tokenIssuedAt?: Date;
   createdAt?: Date;
   updatedAt?: Date;
 }
@@ -21,6 +22,7 @@ class User
   public username!: string;
   public email!: string;
   public password!: string;
+  public tokenIssuedAt!: Date;
   public readonly createdAt!: Date;
   public readonly updatedAt!: Date;
 
@@ -47,6 +49,10 @@ User.init(
     },
     password: {
       type: DataTypes.STRING,
+      allowNull: false,
+    },
+    tokenIssuedAt: {
+      type: DataTypes.DATE,
       allowNull: false,
     },
     createdAt: {

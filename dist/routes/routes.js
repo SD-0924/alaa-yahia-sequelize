@@ -10,11 +10,13 @@ const postController_1 = __importDefault(require("../controllers/postController"
 const validatorMiddlewares_1 = require("../middlewares/validatorMiddlewares");
 const authenticateJWT_1 = require("../middlewares/authenticateJWT");
 /**Auth Routes*/
-router.post("/api/auth/login", validatorMiddlewares_1.userValidationRules.loginUser, userController_1.default.loginUser);
+router.post("/api/auth/login", //body: email, password
+validatorMiddlewares_1.userValidationRules.loginUser, userController_1.default.loginUser);
 router.post("/api/auth/register", validatorMiddlewares_1.userValidationRules.registerUser, userController_1.default.registerUser);
 /**User Routes*/
 router.get("/api/users", //body: empty
-authenticateJWT_1.authenticateJWT, userController_1.default.getUsers);
+authenticateJWT_1.authenticateJWT, //TODO: ONLY ADMIN OR MANEGER
+userController_1.default.getUsers);
 router.post("/api/users", //body: username, email, password.
 // authenticateJWT, BIG NO! if we yet dont have user we cant authenticate them.
 validatorMiddlewares_1.userValidationRules.createUser, userController_1.default.createUser //TODO: reqister? or "admin", how we gonna use this rout?
