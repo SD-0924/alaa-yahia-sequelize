@@ -12,7 +12,27 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.loginUser = void 0;
 const userModel_1 = __importDefault(require("../models/userModel"));
+const bcrypt_1 = __importDefault(require("bcrypt"));
+const jwtUtils_1 = require("../Utils/jwtUtils");
+const loginUser = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const { email, password } = req.body;
+    // Find user in the database
+    const user = yield userModel_1.default.findOne({ where: { email } });
+    if (!user) {
+        return res.status(404).json({ message: "User not found." });
+    }
+    // Verify password
+    const isPasswordValid = bcrypt_1.default.compareSync(password, user.password);
+    if (!isPasswordValid) {
+        return res.status(401).json({ message: "Invalid credentials." });
+    }
+    // Generate token
+    const token = (0, jwtUtils_1.generateToken)({ userId: user.id, email: user.email });
+    res.status(200).json({ message: "Login successful.", token });
+});
+exports.loginUser = loginUser;
 const getUsers = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const users = yield userModel_1.default.findAll();
@@ -87,6 +107,7 @@ const deleteUserById = (req, res) => __awaiter(void 0, void 0, void 0, function*
     }
 });
 exports.default = {
+    loginUser: exports.loginUser,
     getUsers,
     createUser,
     getUserById,

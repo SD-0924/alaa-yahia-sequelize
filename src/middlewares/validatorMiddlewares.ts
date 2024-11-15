@@ -12,6 +12,13 @@ const validateRequest = (req: Request, res: Response, next: NextFunction) => {
 
 // Validation rules
 export const userValidationRules = {
+  loginUser: [
+    check("email")
+      .isEmail()
+      .withMessage("Email must be a valid email address."),
+    check("password").notEmpty().withMessage("Password is required."),
+    validateRequest,
+  ],
   createUser: [
     check("username").isString().withMessage("Username must be a string."),
     check("email")

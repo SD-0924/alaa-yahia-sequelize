@@ -1,5 +1,28 @@
 import { Request, Response } from "express";
 import User from "../models/userModel";
+import bcrypt from "bcrypt";
+import { generateToken } from "../Utils/jwtUtils";
+
+export const loginUser = async (req: Request, res: Response) => {
+  const { email, password } = req.body;
+
+  // Find user in the database
+  const user = await User.findOne({ where: { email } });
+  if (!user) {
+    return res.status(404).json({ message: "User not found." });
+  }
+
+  // Verify password
+  const isPasswordValid = bcrypt.compareSync(password, user.password);
+  if (!isPasswordValid) {
+    return res.status(401).json({ message: "Invalid credentials." });
+  }
+
+  // Generate token
+  const token = generateToken({ userId: user.id, email: user.email });
+
+  res.status(200).json({ message: "Login successful.", token });
+};
 
 const getUsers = async (req: Request, res: Response): Promise<Response> => {
   try {
@@ -81,6 +104,7 @@ const deleteUserById = async (
 };
 
 export default {
+  loginUser,
   getUsers,
   createUser,
   getUserById,

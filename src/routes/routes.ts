@@ -8,6 +8,15 @@ import {
   postValidationRules,
   userValidationRules,
 } from "../middlewares/validatorMiddlewares";
+import { authenticateJWT } from "../middlewares/authenticateJWT";
+
+/**Auth Routes*/
+router.post(
+  "/api/auth/login",
+  userValidationRules.loginUser, // Add validation for login credentials
+  users.loginUser
+);
+
 /**User Routes*/
 router.get(
   // Get all users
@@ -25,12 +34,14 @@ router.post(
 router.get(
   // Get user by ID
   "/api/users/:userId", //body: empty
+  authenticateJWT,
   users.getUserById
 );
 
 router.put(
   // Update user by ID
   "/api/users/:userId", //body: username, email, password.
+  authenticateJWT,
   userValidationRules.updateUserById,
   users.updateUserById
 );
@@ -45,6 +56,7 @@ router.delete(
 router.post(
   // Create a new post
   "/api/posts", //body: title, content, userId
+  authenticateJWT,
   postValidationRules.createPost,
   posts.createPost
 );
@@ -64,6 +76,7 @@ router.get(
 router.put(
   // Update post by ID
   "/api/posts/:postId", //body: title, content
+  authenticateJWT,
   postValidationRules.updatePostById,
   posts.updatePostById
 );
@@ -78,6 +91,7 @@ router.delete(
 router.post(
   // Create a new category for a post
   "/api/posts/:postId/categories", //body: categoryName
+  authenticateJWT,
   categoryValidationRules.createCategoryForPost,
   posts.createCategoryForPost
 );
@@ -92,6 +106,7 @@ router.get(
 router.post(
   // Create a new comment for a post
   "/api/posts/:postId/comments", //body: content, userId
+  authenticateJWT,
   commentValidationRules.createCommentForPost,
   posts.createCommentForPost
 );
