@@ -65,9 +65,9 @@ const getPostById = async (req: Request, res: Response) => {
 const updatePostById = async (req: Request, res: Response) => {
   try {
     const { postId } = req.params;
-    const { title, content } = req.body;
+    const { title, content, userId } = req.body;
     const post = await Post.findByPk(postId);
-    if (post) {
+    if (post && post.userId === userId) {
       post.title = title;
       post.content = content;
       await post.save();

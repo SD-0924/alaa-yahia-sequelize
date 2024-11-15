@@ -77,7 +77,7 @@ router.get(
 );
 
 router.put(
-  "/api/posts/:postId", //body: title, content
+  "/api/posts/:postId", //body: title, content, userId
   authenticateJWT,
   postValidationRules.updatePostById,
   posts.updatePostById

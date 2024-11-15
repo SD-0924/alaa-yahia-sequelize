@@ -67,6 +67,7 @@ export const postValidationRules = {
   updatePostById: [
     param("postId").isInt().withMessage("Post ID must be an integer."),
     check("title").optional().isString().withMessage("Title must be a string."),
+    check("userId").isInt().withMessage("User ID must be an integer."),
     check("content")
       .optional()
       .isString()
