@@ -36,9 +36,11 @@ const sequelize = new Sequelize(
   {
     host: dbConfig.dbHost,
     dialect: "mysql",
-    port: environment === "production" ? 3307 : process.env.HOST,
-    logging: environment === "production" ? false : console.log, // Disable logging in production
+    port:
+      environment.toString().trim() === "production" ? 3307 : process.env.PORT,
+    // logging: environment === "production" ? false : console.log, // Disable logging in production
   }
 );
 
+console.log(process.env.PORT, ">>>>>>>>>>>>>>>>>>>>>>>>");
 export default sequelize;
