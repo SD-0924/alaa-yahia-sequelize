@@ -7,18 +7,15 @@ export const registerUser = async (req: Request, res: Response) => {
   const { username, email, password } = req.body;
 
   try {
-    // Check if the email is already registered
     const existingUser = await User.findOne({ where: { email } });
     if (existingUser) {
       return res.status(400).json({ message: "Email is already registered." });
     }
 
-    const hashedPassword = bcrypt.hashSync(password, 10);
-
     const newUser = await User.create({
       username,
       email,
-      password: hashedPassword,
+      password,
       tokenIssuedAt: new Date(),
     });
 
@@ -34,12 +31,37 @@ export const registerUser = async (req: Request, res: Response) => {
         id: newUser.id,
         username: newUser.username,
         email: newUser.email,
+        tokenIssuedAt: newUser.tokenIssuedAt,
       },
       token,
     });
   } catch (error) {
     console.error("Error registering user:", error);
     res.status(500).json({ message: "An error occurred during registration." });
+  }
+};
+
+const createUser = async (req: Request, res: Response): Promise<Response> => {
+  try {
+    const username = req.body.username;
+    const email = req.body.email;
+    const password = req.body.password;
+
+    const existingUser = await User.findOne({ where: { email } });
+    if (existingUser) {
+      return res.status(400).json({ message: "Email is already registered." });
+    }
+
+    const user = await User.create({
+      username,
+      email,
+      password,
+      tokenIssuedAt: new Date(),
+    });
+    return res.status(201).json(user);
+  } catch (error: any) {
+    console.error("Error creating user:", error);
+    return res.status(500).json({ message: error.message });
   }
 };
 
@@ -74,24 +96,6 @@ const getUsers = async (req: Request, res: Response): Promise<Response> => {
     return res.status(200).json(users);
   } catch (error: any) {
     console.error("Error fetching users:", error);
-    return res.status(500).json({ message: error.message });
-  }
-};
-
-const createUser = async (req: Request, res: Response): Promise<Response> => {
-  try {
-    const username = req.body.username;
-    const email = req.body.email;
-    const password = req.body.password;
-    const user = await User.create({
-      username,
-      email,
-      password,
-      tokenIssuedAt: new Date(),
-    });
-    return res.status(201).json(user);
-  } catch (error: any) {
-    console.error("Error creating user:", error);
     return res.status(500).json({ message: error.message });
   }
 };

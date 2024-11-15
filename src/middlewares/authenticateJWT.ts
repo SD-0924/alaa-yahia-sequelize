@@ -35,8 +35,8 @@ export const authenticateJWT = async (
   req.user = payload;
 
   // Check if the route has a :userId parameter
-  const userIdParam = req.params.userId;
-  if (userIdParam && userIdParam !== String(payload.userId)) {
+  const userIdParam = req.params.userId || req.body.userId;
+  if (userIdParam && String(userIdParam) !== String(payload.userId)) {
     return res
       .status(403)
       .json({ message: "You are not authorized to access this resource." });
