@@ -12,23 +12,51 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.loginUser = void 0;
+exports.loginUser = exports.registerUser = void 0;
 const userModel_1 = __importDefault(require("../models/userModel"));
 const bcrypt_1 = __importDefault(require("bcrypt"));
 const jwtUtils_1 = require("../Utils/jwtUtils");
+const registerUser = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const { username, email, password } = req.body;
+    try {
+        // Check if the email is already registered
+        const existingUser = yield userModel_1.default.findOne({ where: { email } });
+        if (existingUser) {
+            return res.status(400).json({ message: "Email is already registered." });
+        }
+        const hashedPassword = bcrypt_1.default.hashSync(password, 10);
+        const newUser = yield userModel_1.default.create({
+            username,
+            email,
+            password: hashedPassword,
+        });
+        const token = (0, jwtUtils_1.generateToken)({ userId: newUser.id, email: newUser.email });
+        res.status(201).json({
+            message: "User registered successfully.",
+            user: {
+                id: newUser.id,
+                username: newUser.username,
+                email: newUser.email,
+            },
+            token,
+        });
+    }
+    catch (error) {
+        console.error("Error registering user:", error);
+        res.status(500).json({ message: "An error occurred during registration." });
+    }
+});
+exports.registerUser = registerUser;
 const loginUser = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { email, password } = req.body;
-    // Find user in the database
     const user = yield userModel_1.default.findOne({ where: { email } });
     if (!user) {
         return res.status(404).json({ message: "User not found." });
     }
-    // Verify password
     const isPasswordValid = bcrypt_1.default.compareSync(password, user.password);
     if (!isPasswordValid) {
         return res.status(401).json({ message: "Invalid credentials." });
     }
-    // Generate token
     const token = (0, jwtUtils_1.generateToken)({ userId: user.id, email: user.email });
     res.status(200).json({ message: "Login successful.", token });
 });
@@ -108,6 +136,7 @@ const deleteUserById = (req, res) => __awaiter(void 0, void 0, void 0, function*
 });
 exports.default = {
     loginUser: exports.loginUser,
+    registerUser: exports.registerUser,
     getUsers,
     createUser,
     getUserById,

@@ -19,6 +19,16 @@ export const userValidationRules = {
     check("password").notEmpty().withMessage("Password is required."),
     validateRequest,
   ],
+  registerUser: [
+    check("username").isString().withMessage("Username must be a string."),
+    check("email")
+      .isEmail()
+      .withMessage("Email must be a valid email address."),
+    check("password")
+      .isLength({ min: 6 })
+      .withMessage("Password must be at least 6 characters long."),
+    validateRequest,
+  ],
   createUser: [
     check("username").isString().withMessage("Username must be a string."),
     check("email")

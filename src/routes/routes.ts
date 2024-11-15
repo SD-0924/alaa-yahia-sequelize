@@ -11,16 +11,18 @@ import {
 import { authenticateJWT } from "../middlewares/authenticateJWT";
 
 /**Auth Routes*/
+router.post("/api/auth/login", userValidationRules.loginUser, users.loginUser);
+
 router.post(
-  "/api/auth/login",
-  userValidationRules.loginUser, // Add validation for login credentials
-  users.loginUser
+  "/api/auth/register",
+  userValidationRules.registerUser,
+  users.registerUser
 );
 
 /**User Routes*/
 router.get(
   "/api/users", //body: empty
-  authenticateJWT,
+  authenticateJWT, //TODO: ONLY ADMIN OR MANEGER
   users.getUsers
 );
 
@@ -28,7 +30,7 @@ router.post(
   "/api/users", //body: username, email, password.
   // authenticateJWT, BIG NO! if we yet dont have user we cant authenticate them.
   userValidationRules.createUser,
-  users.createUser //TODO: reqister?
+  users.createUser //TODO: reqister? or "admin", how we gonna use this rout?
 );
 
 router.get(
