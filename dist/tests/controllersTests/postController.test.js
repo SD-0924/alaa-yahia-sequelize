@@ -141,10 +141,11 @@ describe("Post Controller", () => {
     describe("deletePostById", () => {
         it("should delete a post by ID", () => __awaiter(void 0, void 0, void 0, function* () {
             req.params = { postId: "1" };
+            req.body = { userId: "1" };
             postModel_1.default.destroy.mockResolvedValue(1);
             yield postController_1.default.deletePostById(req, res);
             expect(postModel_1.default.destroy).toHaveBeenCalledWith({
-                where: { id: "1", userId: 1 },
+                where: { id: "1", userId: "1" },
             }); //
             expect(statusSpy).toHaveBeenCalledWith(200);
             expect(jsonSpy).toHaveBeenCalledWith({

@@ -42,5 +42,5 @@ const sequelize = new Sequelize(
   }
 );
 
-// console.log(environment, sequelize, ">>>>>>>>>>>>>>>>>>>>>>>>");
+console.log(dbConfig, ">>>>>>>>>>>>>>>>>>>>>>>>");
 export default sequelize;

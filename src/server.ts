@@ -1,5 +1,4 @@
-import dotenv from "dotenv";
-dotenv.config();
+require("dotenv").config();
 import { Sequelize } from "sequelize";
 
 import app from "./app";

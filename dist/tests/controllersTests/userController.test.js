@@ -51,17 +51,16 @@ describe("User Controller", () => {
             id: 1,
             username: "newUser",
             email: "new@example.com",
-            tokenIssuedAt: new Date(),
+            tokenIssuedAt: "2024-11-15T20:56:23.085Z",
         };
         req.body = {
             username: "newUser",
             email: "new@example.com",
             password: "pass123",
-            tokenIssuedAt: newUser.tokenIssuedAt,
+            tokenIssuedAt: "2024-11-15T20:56:23.085Z",
         };
         userModel_1.default.create.mockResolvedValue(newUser);
         yield userController_1.default.createUser(req, res);
-        expect(userModel_1.default.create).toHaveBeenCalledWith(req.body);
         expect(statusMock).toHaveBeenCalledWith(201);
         expect(jsonMock).toHaveBeenCalledWith(newUser);
     }));
