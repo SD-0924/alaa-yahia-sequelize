@@ -142,7 +142,8 @@ This project is a **backend RESTful API** for a blogging system built with **Nod
    ```
    http://localhost:3000
    ```
-
+### Deployed to Render:
+https://alaa-yahia-sequelize.onrender.com/
 ---
 
 ## Database Schema
