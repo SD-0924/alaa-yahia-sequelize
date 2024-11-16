@@ -179,7 +179,7 @@ The database schema includes:
   - Users ↔ Posts (One-to-Many)
   - Posts ↔ Categories (Many-to-Many)
   - Posts ↔ Comments (One-to-Many)
-  - Comments ↔ Users (One-to-Many)
+  - Users ↔ Comments (One-to-Many)
 
 ---
 
