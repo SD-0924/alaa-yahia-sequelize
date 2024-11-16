@@ -18,6 +18,7 @@
     "username": "root",
     "password": "123456",
     "host": "db",
+    "port": 3307,
     "dialect": "mysql"
   }
 }
